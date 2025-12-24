@@ -27,14 +27,17 @@ const Navbar = () => {
         setIsOpen(false);
         const element = document.querySelector(href);
         if (element) {
-            const offset = 80; // Height of the fixed header
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.scrollY - offset;
+            // Small timeout to allow menu closing animation to start/finish
+            setTimeout(() => {
+                const offset = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - offset;
 
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth"
-            });
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }, 100);
         }
     };
 
