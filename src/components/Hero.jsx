@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
     return (
-        <section className="relative w-full h-screen flex items-center justify-center overflow-hidden pt-20">
+        <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-36 pb-20 md:pt-20 md:pb-0">
             {/* Background Effects */}
             <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
                 <div className="absolute top-[-10%] left-[20%] w-[30vw] h-[30vw] bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
