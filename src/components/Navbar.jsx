@@ -22,12 +22,28 @@ const Navbar = () => {
         { name: 'FAQ', href: '#faq' },
     ];
 
+    const handleNavClick = (e, href) => {
+        e.preventDefault();
+        setIsOpen(false);
+        const element = document.querySelector(href);
+        if (element) {
+            const offset = 80; // Height of the fixed header
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+    };
+
     return (
         <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#030014]/80 backdrop-blur-md shadow-lg border-b border-white/5' : 'bg-transparent'}`}>
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
-                    <div className="flex-shrink-0 cursor-pointer">
+                    <div className="flex-shrink-0 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                         <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                             W3setup
                         </span>
@@ -40,6 +56,7 @@ const Navbar = () => {
                                 <a
                                     key={link.name}
                                     href={link.href}
+                                    onClick={(e) => handleNavClick(e, link.href)}
                                     className="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium"
                                 >
                                     {link.name}
@@ -82,7 +99,7 @@ const Navbar = () => {
                                 <a
                                     key={link.name}
                                     href={link.href}
-                                    onClick={() => setIsOpen(false)}
+                                    onClick={(e) => handleNavClick(e, link.href)}
                                     className="block text-gray-300 hover:text-white text-base font-medium transition-colors"
                                 >
                                     {link.name}
