@@ -3,24 +3,6 @@ import { Check, Lock } from 'lucide-react';
 
 const projects = [
     {
-        title: 'COPPERAA',
-        url: 'https://copperaa.com',
-        industry: 'LIFESTYLE',
-        description: 'COPPERAA is a premium copper drinkware brand. I built a complete Shopify store focused on luxury presentation, trust elements, and a smooth shopping experience.',
-        features: [
-            'Custom homepage layout focused on luxury aesthetics',
-            'Advanced collection-based user navigation & search',
-            'Product pages with conversion-boosting trust badges',
-            'Highly optimized, mobile-first responsive checkout setup'
-        ],
-        metrics: [
-            { label: 'PageSpeed', value: '91' },
-            { label: 'Conversions', value: '+2.8x' },
-            { label: 'Mobile UX', value: '5★' }
-        ],
-        image: '/images/copperaa-full.png'
-    },
-    {
         title: 'COPPRLY',
         url: 'https://copprly.com',
         industry: 'WELLNESS',
@@ -37,6 +19,25 @@ const projects = [
             { label: 'Mobile Sales', value: '+40%' }
         ],
         image: '/images/copprly-full.png'
+    },
+    {
+        title: 'CUPREVA',
+        url: 'https://cupreva.com/',
+        industry: 'Health & Wellness',
+        description: 'CUPREVA needed a Shopify store that builds instant trust for a health-focused product. We designed a clean, benefit-led layout that educates and converts — combining brand storytelling with fast, mobile-first performance.',
+        features: [
+            'Custom Shopify theme — clean health-brand aesthetic',
+            '"Why Copper?" benefit storytelling section',
+            'Trust badges and ingredient-transparency layout',
+            'Mobile-first product pages optimized for conversion',
+            'PageSpeed optimized — score 88+'
+        ],
+        metrics: [
+            { value: 'PageSpeed 88+' },
+            { value: 'Mobile Optimized' },
+            { value: 'Health-Trust Layout' }
+        ],
+        image: '/images/cupreva-full.png'
     },
     {
         title: 'DREZYY',
@@ -57,23 +58,22 @@ const projects = [
         image: '/images/drezyy-full.png'
     },
     {
-        title: 'CUPREVA',
-        url: 'https://cupreva.com/',
-        industry: 'Health & Wellness',
-        description: 'CUPREVA needed a Shopify store that builds instant trust for a health-focused product. We designed a clean, benefit-led layout that educates and converts — combining brand storytelling with fast, mobile-first performance.',
+        title: 'COPPERAA',
+        url: 'https://copperaa.com',
+        industry: 'LIFESTYLE',
+        description: 'COPPERAA is a premium copper drinkware brand. I built a complete Shopify store focused on luxury presentation, trust elements, and a smooth shopping experience.',
         features: [
-            'Custom Shopify theme — clean health-brand aesthetic',
-            '"Why Copper?" benefit storytelling section',
-            'Trust badges and ingredient-transparency layout',
-            'Mobile-first product pages optimized for conversion',
-            'PageSpeed optimized — score 88+'
+            'Custom homepage layout focused on luxury aesthetics',
+            'Advanced collection-based user navigation & search',
+            'Product pages with conversion-boosting trust badges',
+            'Highly optimized, mobile-first responsive checkout setup'
         ],
         metrics: [
-            { value: 'PageSpeed 88+' },
-            { value: 'Mobile Optimized' },
-            { value: 'Health-Trust Layout' }
+            { label: 'PageSpeed', value: '91' },
+            { label: 'Conversions', value: '+2.8x' },
+            { label: 'Mobile UX', value: '5★' }
         ],
-        image: '/images/cupreva-full.png'
+        image: '/images/copperaa-full.png'
     }
 ];
 
