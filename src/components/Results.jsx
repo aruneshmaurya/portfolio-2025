@@ -96,7 +96,10 @@ const Results = () => {
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-text-primary mb-6 font-sora">
+                    <span className="eyebrow-label mb-4">
+                        KEY METRICS
+                    </span>
+                    <h2 className="text-3xl md:text-5xl font-extrabold text-text-primary mb-6 font-sora mt-2">
                         Results That Speak
                     </h2>
                     <p className="text-text-secondary text-lg max-w-2xl mx-auto font-inter">

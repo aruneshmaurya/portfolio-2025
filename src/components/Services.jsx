@@ -53,7 +53,7 @@ const Services = () => {
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 {/* Header */}
                 <div className="text-center mb-20">
-                    <span className="inline-block text-indigo-accent text-xs md:text-sm font-mono tracking-[0.2em] uppercase mb-4">
+                    <span className="eyebrow-label mb-4">
                         WHAT I DO
                     </span>
                     <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 font-sora">

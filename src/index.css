@@ -90,24 +90,69 @@ section:not(#hero):not(.hero-section) {
 }
 
 /* Section Eyebrow styling */
+/* Section Eyebrow styling with premium Glassmorphism */
 .eyebrow-label {
   font-family: 'Space Mono', monospace !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.15em !important;
-  color: var(--accent) !important;
+  letter-spacing: 0.16em !important;
+  color: var(--text-primary) !important;
   font-size: 11px !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  padding: 6px 14px !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 9999px !important;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    0 0 12px rgba(91, 110, 245, 0.08) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none;
 }
+
+.eyebrow-label:hover {
+  background: rgba(91, 110, 245, 0.08) !important;
+  border-color: rgba(91, 110, 245, 0.3) !important;
+  color: var(--accent) !important;
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 0 20px rgba(91, 110, 245, 0.2) !important;
+  transform: translateY(-1px);
+}
+
 .eyebrow-label::before {
   content: '';
   display: inline-block;
-  width: 2px;
-  height: 16px;
+  width: 6px;
+  height: 6px;
   background-color: var(--accent);
-  border-radius: 1px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent);
+  animation: eyebrow-pulse 2s infinite ease-in-out;
+  transition: background-color 0.3s ease;
+}
+
+.eyebrow-label:hover::before {
+  background-color: var(--accent-purple);
+  box-shadow: 0 0 8px var(--accent-purple);
+}
+
+@keyframes eyebrow-pulse {
+  0%, 100% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+    filter: brightness(1.2);
+  }
 }
 
 /* Premium Scrollbar */
