@@ -5,10 +5,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [activeSection, setActiveSection] = useState('#hero');
 
     useEffect(() => {
+        const sections = ['#hero', '#services', '#projects', '#pricing', '#testimonials', '#faq'];
         const handleScroll = () => {
             setScrolled(window.scrollY > 30);
+            
+            // Simple section detection for active indicator
+            const scrollPosition = window.scrollY + 120;
+            for (const section of sections) {
+                const element = document.querySelector(section);
+                if (element) {
+                    const top = element.offsetTop;
+                    const height = element.offsetHeight;
+                    if (scrollPosition >= top && scrollPosition < top + height) {
+                        setActiveSection(section);
+                    }
+                }
+            }
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -18,6 +33,7 @@ const Navbar = () => {
         { name: 'Services', href: '#services' },
         { name: 'Work', href: '#projects' },
         { name: 'Pricing', href: '#pricing' },
+        { name: 'Testimonials', href: '#testimonials' },
         { name: 'FAQ', href: '#faq' },
     ];
 
@@ -35,46 +51,53 @@ const Navbar = () => {
                     top: offsetPosition,
                     behavior: "smooth"
                 });
+                setActiveSection(href);
             }, 100);
         }
     };
 
     return (
-        <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        <nav className={`fixed left-1/2 -translate-x-1/2 z-50 w-[calc(100%-48px)] max-w-7xl transition-all duration-500 rounded-full border border-white/[0.08] ${
             scrolled 
-                ? 'bg-[#070B14]/80 backdrop-blur-xl border-b border-white/[0.06] py-4 shadow-2xl' 
-                : 'bg-transparent py-6'
+                ? 'top-3 bg-[#050816]/75 backdrop-blur-xl py-3 border-indigo-accent/20 shadow-[0_20px_40px_rgba(0,0,0,0.5),_0_0_20px_rgba(91,110,245,0.08)]' 
+                : 'top-6 bg-white/[0.03] backdrop-blur-lg py-4 shadow-xl'
         }`}>
-            <div className="max-w-7xl mx-auto px-6 md:px-12">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <div 
-                        className="flex-shrink-0 cursor-pointer flex items-center font-sora font-extrabold text-2xl text-white tracking-tight"
+                        className="flex-shrink-0 cursor-pointer flex items-center font-satoshi font-black text-2xl text-white tracking-tight"
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
                         W3<span className="text-accent relative inline-block">S<span className="absolute bottom-0.5 left-0 w-full h-1 bg-accent rounded-full"></span></span>etup
                     </div>
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex items-center space-x-10">
+                    <div className="hidden md:flex items-center space-x-8">
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
                                 onClick={(e) => handleNavClick(e, link.href)}
-                                className="nav-link text-text-muted hover:text-text-main transition-colors duration-300 text-sm font-medium font-inter tracking-wide"
+                                className={`nav-link text-text-muted hover:text-text-main transition-colors duration-300 text-sm font-medium font-inter tracking-wide ${
+                                    activeSection === link.href ? 'active text-white' : ''
+                                }`}
                             >
                                 {link.name}
                             </a>
                         ))}
+                    </div>
+
+                    {/* Desktop CTA Button */}
+                    <div className="hidden md:block">
                         <a
-                            href="https://wa.me/919336495028?text=Hi%20I%27m%20interested%20in%20a%20Shopify%20store%20for%20my%20brand"
+                            href="https://cal.com/aruneshmaurya/30min"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-accent to-purple-accent text-white px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-[0_0_25px_rgba(91,110,245,0.4)] transform hover:-translate-y-0.5"
+                            className="inline-flex items-center gap-1.5 bg-gradient-to-r from-indigo-accent to-purple-accent text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 hover:shadow-[0_0_25px_rgba(91,110,245,0.4)] transform hover:-translate-y-0.5 group/btn ripple-effect"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            Start a Project
+                            Book Free Call
+                            <ArrowRight size={14} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
                         </a>
                     </div>
 
@@ -109,10 +132,10 @@ const Navbar = () => {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 bottom-0 w-4/5 max-w-sm bg-[#0D1526] border-l border-white/[0.06] z-50 p-8 flex flex-col md:hidden"
+                            className="fixed top-0 right-0 bottom-0 w-4/5 max-w-sm bg-[#050816] border-l border-white/[0.06] z-50 p-8 flex flex-col md:hidden"
                         >
                             <div className="flex justify-between items-center mb-12">
-                                <div className="font-sora font-extrabold text-2xl text-white tracking-tight">
+                                <div className="font-satoshi font-black text-2xl text-white tracking-tight">
                                     W3<span className="text-accent relative inline-block">S<span className="absolute bottom-0.5 left-0 w-full h-1 bg-accent rounded-full"></span></span>etup
                                 </div>
                                 <button
@@ -129,7 +152,9 @@ const Navbar = () => {
                                         key={link.name}
                                         href={link.href}
                                         onClick={(e) => handleNavClick(e, link.href)}
-                                        className="text-text-muted hover:text-text-main text-lg font-medium tracking-wide transition-colors font-sora py-2 border-b border-white/[0.03]"
+                                        className={`text-text-muted hover:text-text-main text-lg font-medium tracking-wide transition-colors font-satoshi py-2 border-b border-white/[0.03] ${
+                                            activeSection === link.href ? 'text-white border-b-accent' : ''
+                                        }`}
                                     >
                                         {link.name}
                                     </a>
@@ -138,14 +163,14 @@ const Navbar = () => {
 
                             <div className="mt-auto">
                                 <a
-                                    href="https://wa.me/919336495028?text=Hi%20I%27m%20interested%20in%20a%20Shopify%20store%20for%20my%20brand"
+                                    href="https://cal.com/aruneshmaurya/30min"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={() => setIsOpen(false)}
-                                    className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-indigo-accent to-purple-accent text-white py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-[0_0_20px_rgba(91,110,245,0.3)]"
+                                    className="flex items-center justify-center gap-1.5 w-full bg-gradient-to-r from-indigo-accent to-purple-accent text-white py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-[0_0_20px_rgba(91,110,245,0.3)] group/btn ripple-effect"
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                                    Start a Project
+                                    Book Free Call
+                                    <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
                                 </a>
                             </div>
                         </motion.div>

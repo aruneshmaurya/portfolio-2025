@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,500,400&f[]=general-sans@700,600,500,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg-primary: #070B14;
+  --bg-primary: #050816;
   --bg-secondary: #0D1526;
   --bg-card: #111827;
   --accent: #5B6EF5;
@@ -28,12 +29,15 @@
     background-color: var(--bg-primary);
     color: var(--text-primary);
     font-family: 'Inter', sans-serif;
+    font-weight: 500;
     overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
+    font-family: 'Satoshi', 'General Sans', 'Inter', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
   }
 }
 
@@ -268,4 +272,58 @@ button:not(.hamburger-btn):active, .btn-primary:active, .btn-secondary:active {
 }
 .animate-float-medium {
   animation: float-medium 6s ease-in-out infinite;
+}
+
+/* Interactive Glow & UX */
+.cursor-glow-element {
+  pointer-events: none;
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(91, 110, 245, 0.1) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  mix-blend-mode: screen;
+  will-change: transform;
+  display: none;
+}
+@media (min-width: 768px) {
+  .cursor-glow-element {
+    display: block;
+  }
+}
+
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-span {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  pointer-events: none;
+}
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* 3D Dashboard Mockup classes */
+.perspective-1000 {
+  perspective: 1200px;
+}
+.rotate-y-12 {
+  transform: rotateY(-10deg) rotateX(8deg) rotateZ(-2deg);
+}
+.dashboard-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease-out;
+}
+.dashboard-3d:hover {
+  transform: rotateY(-4deg) rotateX(4deg) rotateZ(-1deg) scale(1.02);
 }

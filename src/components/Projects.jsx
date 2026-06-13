@@ -73,7 +73,7 @@ const projects = [
             { value: 'Mobile Optimized' },
             { value: 'Health-Trust Layout' }
         ],
-        image: '' // CSS-drawn mockup used instead
+        image: '/images/cupreva-full.png'
     }
 ];
 
@@ -87,7 +87,15 @@ const BrowserMockup = ({ project }) => {
     const isCupreva = project.title === 'CUPREVA';
     
     return (
-        <div className="browser-mockup-container w-full h-[360px] sm:h-[450px] rounded-[12px] border border-border-accent overflow-hidden relative bg-bg-primary select-none flex flex-col group/browser">
+        <div 
+            className="browser-mockup-container w-full h-[360px] sm:h-[450px] rounded-[12px] overflow-hidden relative bg-bg-primary select-none flex flex-col group/browser"
+            style={isCupreva ? {
+                border: '1.5px solid rgba(184, 115, 51, 0.4)',
+                boxShadow: '0 0 40px rgba(184, 115, 51, 0.15), 0 20px 60px rgba(0, 0, 0, 0.5)'
+            } : {
+                border: '1px solid var(--border-accent)'
+            }}
+        >
             {/* Fake Browser Chrome Header */}
             <div 
                 className="h-10 px-4 flex items-center justify-between border-b border-border-accent z-20 shrink-0 relative"
@@ -113,63 +121,34 @@ const BrowserMockup = ({ project }) => {
 
             {/* Content Area */}
             <div className="relative w-full flex-grow overflow-hidden z-10 bg-bg-primary">
-                {isCupreva ? (
-                    /* CUPREVA Custom CSS-drawn Page Mockup */
+                {/* Scrolling Image Mockup */}
+                <div className="w-full absolute top-0 left-0 animate-mockup-scroll">
+                    <img 
+                        src={project.image} 
+                        alt={`${project.title} Preview`} 
+                        className="w-full block select-none pointer-events-none"
+                    />
+                </div>
+
+                {isCupreva && (
+                    /* Glass overlay that sits static on top of the scrolling content */
                     <div 
-                        className="w-full h-[650px] absolute top-0 left-0 flex flex-col items-center py-12 px-6 animate-mockup-scroll pointer-events-none"
+                        className="absolute inset-0 pointer-events-none z-15"
                         style={{
-                            background: 'linear-gradient(180deg, #0a1628 0%, #0d2137 30%, #0a1f33 60%, #071520 100%)',
+                            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.02) 80%, rgba(255, 255, 255, 0.08) 100%)',
+                            boxShadow: 'inset 0 0 40px rgba(255, 255, 255, 0.05)',
+                            border: '1px solid rgba(255, 255, 255, 0.15)',
+                            borderRadius: 'inherit',
+                            backdropFilter: 'blur(0.5px) saturate(1.1) contrast(1.05)',
+                            WebkitBackdropFilter: 'blur(0.5px) saturate(1.1) contrast(1.05)',
                         }}
                     >
-                        {/* Header logo shape */}
-                        <div className="w-20 h-3 bg-white/10 rounded-full mb-12 shrink-0"></div>
-
-                        {/* Centered Circle - Copper Bottle */}
+                        {/* Diagonal light reflection shine overlay */}
                         <div 
-                            className="w-[120px] h-[120px] rounded-full mb-8 shrink-0"
+                            className="absolute inset-0 opacity-45"
                             style={{
-                                background: 'linear-gradient(135deg, #b87333 0%, #da8a4e 50%, #b87333 100%)',
-                                boxShadow: '0 8px 32px rgba(184, 115, 51, 0.3)'
-                            }}
-                        ></div>
-
-                        {/* Placeholder text lines */}
-                        <div className="w-44 h-3.5 bg-white/20 rounded-full mb-3 shrink-0"></div>
-                        <div className="w-32 h-3 bg-white/15 rounded-full mb-3 shrink-0"></div>
-                        <div className="w-24 h-3 bg-white/10 rounded-full mb-8 shrink-0"></div>
-
-                        {/* Indigo CTA Button */}
-                        <div 
-                            className="w-36 h-9 rounded-full shrink-0 flex items-center justify-center shadow-lg"
-                            style={{
-                                background: 'var(--accent)'
-                            }}
-                        >
-                            <div className="w-16 h-2 bg-white/80 rounded-full"></div>
-                        </div>
-
-                        {/* Divider Line */}
-                        <div className="w-full h-[1px] bg-white/[0.05] my-10 shrink-0"></div>
-
-                        {/* Storytelling cards */}
-                        <div className="grid grid-cols-2 gap-4 w-full max-w-[280px] shrink-0">
-                            <div className="h-12 bg-white/5 rounded-lg border border-white/[0.05] flex items-center justify-center p-2">
-                                <div className="w-16 h-2 bg-white/20 rounded-full"></div>
-                            </div>
-                            <div className="h-12 bg-white/5 rounded-lg border border-white/[0.05] flex items-center justify-center p-2">
-                                <div className="w-16 h-2 bg-white/20 rounded-full"></div>
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    /* Scrolling Image Mockup */
-                    <div className="w-full absolute top-0 left-0 animate-mockup-scroll">
-                        <img 
-                            src={project.image} 
-                            alt={`${project.title} Preview`} 
-                            className="w-full block select-none pointer-events-none"
-                            style={{
-                                backdropFilter: 'blur(0px)',
+                                background: 'linear-gradient(60deg, transparent 40%, rgba(255,255,255,0.12) 45%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.12) 55%, transparent 60%)',
+                                backgroundSize: '200% 200%',
                             }}
                         />
                     </div>
