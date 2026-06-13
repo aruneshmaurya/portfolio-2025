@@ -108,7 +108,7 @@ const Hero = () => {
                         <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.05] text-white max-w-2xl mb-6 font-satoshi">
                             Build Shopify stores<br className="hidden md:block" />
                             that turn visitors into<br className="hidden md:block" />
-                            <span className="relative inline-block text-left h-[1.1em] w-[260px] md:w-[280px]">
+                            <span className="relative inline-block text-left h-[1.1em] w-[260px] sm:w-[320px] md:w-[380px]">
                                 <AnimatePresence mode="wait">
                                     <motion.span
                                         key={words[wordIndex]}

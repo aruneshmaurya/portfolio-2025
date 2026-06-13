@@ -327,3 +327,30 @@ button:not(.hamburger-btn):active, .btn-primary:active, .btn-secondary:active {
 .dashboard-3d:hover {
   transform: rotateY(-4deg) rotateX(4deg) rotateZ(-1deg) scale(1.02);
 }
+
+/* Tools Infinite Marquee */
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+}
+.marquee-track {
+  display: flex;
+  gap: 80px;
+  width: max-content;
+  animation: marquee-infinite 25s linear infinite;
+  align-items: center;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
