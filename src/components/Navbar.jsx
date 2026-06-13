@@ -52,7 +52,7 @@ const Navbar = () => {
                         className="flex-shrink-0 cursor-pointer flex items-center font-sora font-extrabold text-2xl text-white tracking-tight"
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
-                        W3<span className="text-indigo-accent relative inline-block">3<span className="absolute bottom-0.5 left-0 w-full h-1 bg-indigo-accent rounded-full"></span></span>Setup
+                        W3<span className="text-accent relative inline-block">S<span className="absolute bottom-0.5 left-0 w-full h-1 bg-accent rounded-full"></span></span>etup
                     </div>
 
                     {/* Desktop Menu */}
@@ -62,7 +62,7 @@ const Navbar = () => {
                                 key={link.name}
                                 href={link.href}
                                 onClick={(e) => handleNavClick(e, link.href)}
-                                className="text-text-muted hover:text-text-main transition-colors duration-300 text-sm font-medium font-inter tracking-wide"
+                                className="nav-link text-text-muted hover:text-text-main transition-colors duration-300 text-sm font-medium font-inter tracking-wide"
                             >
                                 {link.name}
                             </a>
@@ -113,7 +113,7 @@ const Navbar = () => {
                         >
                             <div className="flex justify-between items-center mb-12">
                                 <div className="font-sora font-extrabold text-2xl text-white tracking-tight">
-                                    W3<span className="text-indigo-accent relative inline-block">3<span className="absolute bottom-0.5 left-0 w-full h-1 bg-indigo-accent rounded-full"></span></span>Setup
+                                    W3<span className="text-accent relative inline-block">S<span className="absolute bottom-0.5 left-0 w-full h-1 bg-accent rounded-full"></span></span>etup
                                 </div>
                                 <button
                                     onClick={() => setIsOpen(false)}

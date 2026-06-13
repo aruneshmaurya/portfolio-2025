@@ -1,31 +1,237 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .pause-on-hover:hover {
-    animation-play-state: paused;
+:root {
+  --bg-primary: #070B14;
+  --bg-secondary: #0D1526;
+  --bg-card: #111827;
+  --accent: #5B6EF5;
+  --accent-purple: #8B5CF6;
+  --accent-glow: rgba(91, 110, 245, 0.12);
+  --text-primary: #F0F4FF;
+  --text-secondary: #8892A4;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-accent: rgba(91, 110, 245, 0.3);
+  --green-wa: #25D366;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
   }
   
-  .bg-aurora-mesh {
-    background: radial-gradient(circle at 20% 30%, rgba(91, 110, 245, 0.15), transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15), transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(7, 11, 20, 1), rgba(7, 11, 20, 1));
-    background-size: 200% 200%;
-    animation: aurora-shift 15s ease infinite;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
   }
 }
 
-@keyframes marquee {
+/* Custom width override for max-w-7xl to fit 1200px max content width */
+.max-w-7xl {
+  max-width: 1200px !important;
+}
+
+/* Global Section Spacing (except hero) */
+section:not(#hero):not(.hero-section) {
+  padding: 100px 0;
+}
+@media (max-width: 767px) {
+  section:not(#hero):not(.hero-section) {
+    padding: 60px 0;
+  }
+}
+
+/* Global Card style */
+.premium-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+  transition: all 0.3s ease !important;
+}
+.premium-card:hover {
+  border-color: var(--border-accent) !important;
+  box-shadow: 0 0 32px var(--accent-glow) !important;
+}
+
+/* Nav Link Hover Underline Animation */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Section Eyebrow styling */
+.eyebrow-label {
+  font-family: 'Space Mono', monospace !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  color: var(--accent) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow-label::before {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  background-color: var(--accent);
+  border-radius: 1px;
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-accent);
+}
+
+/* Testimonials Carousel continuous animation */
+@keyframes carousel-scroll-left {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
+}
+.animate-carousel-loop {
+  animation: carousel-scroll-left 40s linear infinite;
+}
+.animate-carousel-loop:hover {
+  animation-play-state: paused;
+}
+
+/* Browser Mockup Scroll Animation */
+@keyframes mockup-scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-30%);
+  }
+}
+.animate-mockup-scroll {
+  animation: mockup-scroll-up 8s ease-in-out alternate infinite;
+}
+.browser-mockup-container:hover .animate-mockup-scroll {
+  animation-play-state: paused;
+}
+
+/* Rotating Gradient Border for popular pricing plan */
+@property --rotate-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes rotate-gradient-border {
+  0% {
+    --rotate-angle: 0deg;
+  }
+  100% {
+    --rotate-angle: 360deg;
+  }
+}
+.popular-pricing-card {
+  position: relative;
+  background: var(--bg-secondary);
+  border: none !important;
+  border-radius: 24px;
+  z-index: 1;
+}
+.popular-pricing-card::before {
+  content: '';
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  right: -1.5px;
+  bottom: -1.5px;
+  background: linear-gradient(var(--rotate-angle, 0deg), var(--accent) 0%, var(--accent-purple) 50%, var(--accent) 100%);
+  border-radius: 25px;
+  z-index: -1;
+  animation: rotate-gradient-border 6s linear infinite;
+}
+
+/* WhatsApp pulsing animation */
+@keyframes wa-shadow-pulse {
+  0% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  70% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+.whatsapp-pulse-btn {
+  animation: wa-shadow-pulse 2s infinite;
+}
+
+/* Custom Scroll reveal fade up class */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scroll-reveal.reveal-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Global Buttons Style */
+button:not(.hamburger-btn), .btn-primary, .btn-secondary {
+  transition: all 0.25s ease-in-out !important;
+}
+button:not(.hamburger-btn):hover, .btn-primary:hover, .btn-secondary:hover {
+  transform: translateY(-2px);
+}
+button:not(.hamburger-btn):active, .btn-primary:active, .btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Aurora Mesh Background */
+.bg-aurora-mesh {
+  background: radial-gradient(circle at 20% 30%, rgba(91, 110, 245, 0.12), transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.12), transparent 50%),
+              radial-gradient(circle at 50% 50%, var(--bg-primary), var(--bg-primary));
+  background-size: 200% 200%;
+  animation: aurora-shift 15s ease infinite;
 }
 
 @keyframes aurora-shift {
@@ -40,15 +246,15 @@
   }
 }
 
+/* Floating Abstract Shapes Animations */
 @keyframes float-slow {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px) rotate(12deg);
   }
   50% {
-    transform: translateY(-10px) rotate(1deg);
+    transform: translateY(-10px) rotate(13deg);
   }
 }
-
 @keyframes float-medium {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
@@ -57,69 +263,9 @@
     transform: translateY(-15px) rotate(-2deg);
   }
 }
-
-.animate-marquee {
-  animation: marquee 35s linear infinite;
-}
-
 .animate-float-slow {
   animation: float-slow 8s ease-in-out infinite;
 }
-
 .animate-float-medium {
   animation: float-medium 6s ease-in-out infinite;
 }
-
-@layer base {
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 80px;
-  }
-
-  body {
-    @apply bg-[#070B14] text-[#F0F4FF] font-inter overflow-x-hidden;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-sora;
-  }
-}
-
-/* Premium Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #070B14;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(91, 110, 245, 0.4);
-}
-
-/* Premium card borders & effects */
-.premium-card {
-  @apply bg-[#0D1526] border border-white/[0.06] rounded-2xl transition-all duration-300;
-}
-
-@keyframes whatsapp-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
-  }
-  70% {
-    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-  }
-}
-
-.whatsapp-btn-pulse {
-  animation: whatsapp-pulse 2s infinite;
-}

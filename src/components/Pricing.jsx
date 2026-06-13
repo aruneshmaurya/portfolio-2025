@@ -85,7 +85,7 @@ const Pricing = () => {
                             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
                             className={`relative rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 ${
                                 plan.popular
-                                    ? 'bg-[#0D1526] border-indigo-accent shadow-[0_0_45px_rgba(91,110,245,0.15)] lg:scale-[1.03] z-10'
+                                    ? 'popular-pricing-card shadow-[0_0_45px_rgba(91,110,245,0.15)] lg:scale-[1.03] z-10'
                                     : 'bg-[#0D1526]/50 border-white/[0.06] hover:bg-[#0D1526] hover:border-white/[0.12]'
                             }`}
                         >
