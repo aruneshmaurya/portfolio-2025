@@ -13,10 +13,7 @@ const Marquee = () => {
                         {/* Set 1 */}
                         {/* Shopify */}
                         <div className="flex items-center justify-center h-8">
-                            <svg viewBox="0 0 124 32" className="h-[26px] fill-current opacity-45 hover:opacity-90 transition-opacity duration-300 cursor-pointer text-white">
-                                <path d="M10.8 4.2L6.1 1.1C5.3.6 4.3 1 4.3 1.9v2.3H2.5C1.1 4.2 0 5.3 0 6.7v18.5c0 1.4 1.1 2.5 2.5 2.5h15.2c1.4 0 2.5-1.1 2.5-2.5V6.7c0-1.4-1.1-2.5-2.5-2.5h-1.8v-2.3c0-.9-1-1.3-1.8-.8L10.8 4.2zM6.2 3.6l3.9 2.6H6.2V3.6zm7.8 0V6.2H10.1l3.9-2.6z"/>
-                                <text x="26" y="22" className="font-inter font-black text-lg tracking-tighter">shopify</text>
-                            </svg>
+                            <img src="/images/shopify.png" alt="Shopify" className="h-[25px] object-contain opacity-45 hover:opacity-90 transition-opacity duration-300 cursor-pointer" />
                         </div>
                         {/* Meta */}
                         <div className="flex items-center justify-center h-8">
@@ -51,10 +48,7 @@ const Marquee = () => {
                         {/* Set 2 */}
                         {/* Shopify */}
                         <div className="flex items-center justify-center h-8">
-                            <svg viewBox="0 0 124 32" className="h-[26px] fill-current opacity-45 hover:opacity-90 transition-opacity duration-300 cursor-pointer text-white">
-                                <path d="M10.8 4.2L6.1 1.1C5.3.6 4.3 1 4.3 1.9v2.3H2.5C1.1 4.2 0 5.3 0 6.7v18.5c0 1.4 1.1 2.5 2.5 2.5h15.2c1.4 0 2.5-1.1 2.5-2.5V6.7c0-1.4-1.1-2.5-2.5-2.5h-1.8v-2.3c0-.9-1-1.3-1.8-.8L10.8 4.2zM6.2 3.6l3.9 2.6H6.2V3.6zm7.8 0V6.2H10.1l3.9-2.6z"/>
-                                <text x="26" y="22" className="font-inter font-black text-lg tracking-tighter">shopify</text>
-                            </svg>
+                            <img src="/images/shopify.png" alt="Shopify" className="h-[25px] object-contain opacity-45 hover:opacity-90 transition-opacity duration-300 cursor-pointer" />
                         </div>
                         {/* Meta */}
                         <div className="flex items-center justify-center h-8">
