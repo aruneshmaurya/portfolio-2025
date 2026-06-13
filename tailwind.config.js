@@ -7,11 +7,18 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Outfit', 'sans-serif'],
+        sora: ['Sora', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        mono: ['Space Mono', 'monospace'],
+        sans: ['Inter', 'sans-serif'],
       },
       colors: {
-        primary: '#6d28d9', // vivid purple
-        secondary: '#0f172a', // slate 900
+        'bg-main': '#070B14',
+        'bg-card': '#0D1526',
+        'indigo-accent': '#5B6EF5',
+        'purple-accent': '#8B5CF6',
+        'text-main': '#F0F4FF',
+        'text-muted': '#8892A4',
       }
     },
   },

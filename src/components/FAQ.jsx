@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const faqs = [
     {
@@ -21,7 +20,15 @@ const faqs = [
     },
     {
         question: 'How do I get started?',
-        answer: 'Simply click the "Start Your Project" button, fill out the form, and I will get back to you within 24 hours to discuss your project requirements.'
+        answer: 'Simply click the "Start Your Project" button to chat with me directly on WhatsApp, and we can start discussing your project requirements right away.'
+    },
+    {
+        question: 'What is your revision policy?',
+        answer: 'I offer up to 3 rounds of revisions per milestone. My goal is that you\'re 100% happy before we move forward.'
+    },
+    {
+        question: 'Do you work with international clients?',
+        answer: 'Yes. I work with brands globally. Communication is in English and all payments are accepted via international methods.'
     }
 ];
 
@@ -29,43 +36,65 @@ const FAQ = () => {
     const [activeIndex, setActiveIndex] = useState(null);
 
     return (
-        <section id="faq" className="py-24 bg-[#030014]">
-            <div className="max-w-3xl mx-auto px-6">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6">Frequently Asked Questions</h2>
-                    <p className="text-gray-400">Everything you need to know about the process.</p>
+        <section id="faq" className="py-24 bg-[#070B14] relative overflow-hidden">
+            {/* Ambient Glow */}
+            <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-indigo-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div className="max-w-3xl mx-auto px-6 relative z-10">
+                {/* Header */}
+                <div className="text-center mb-20">
+                    <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 font-sora">
+                        Frequently Asked Questions
+                    </h2>
+                    <p className="text-text-muted text-lg font-inter">
+                        Everything you need to know about my Shopify development services.
+                    </p>
                 </div>
 
-                <div className="space-y-4">
-                    {faqs.map((faq, index) => (
-                        <div
-                            key={index}
-                            className="border border-white/10 rounded-xl overflow-hidden bg-white/5"
-                        >
-                            <button
-                                onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                                className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
-                            >
-                                <span className="text-lg font-medium text-white">{faq.question}</span>
-                                {activeIndex === index ? <ChevronUp className="text-primary" /> : <ChevronDown className="text-gray-400" />}
-                            </button>
+                {/* Accordion List */}
+                <div className="divide-y divide-white/[0.08]">
+                    {faqs.map((faq, index) => {
+                        const isOpen = activeIndex === index;
+                        return (
+                            <div key={index} className="py-6 first:pt-0 last:pb-0">
+                                <button
+                                    onClick={() => setActiveIndex(isOpen ? null : index)}
+                                    className="w-full flex items-center justify-between text-left focus:outline-none group"
+                                >
+                                    <span className="text-lg font-bold text-white group-hover:text-indigo-accent transition-colors font-sora pr-4">
+                                        {faq.question}
+                                    </span>
+                                    
+                                    {/* Plus / Minus Indicator in Indigo */}
+                                    <div className="w-6 h-6 flex items-center justify-center shrink-0 relative">
+                                        <div className="w-4 h-0.5 bg-indigo-accent rounded"></div>
+                                        <motion.div
+                                            initial={{ rotate: 90 }}
+                                            animate={{ rotate: isOpen ? 0 : 90 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="w-0.5 h-4 bg-indigo-accent rounded absolute"
+                                        ></motion.div>
+                                    </div>
+                                </button>
 
-                            <AnimatePresence>
-                                {activeIndex === index && (
-                                    <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: 'auto', opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        className="overflow-hidden"
-                                    >
-                                        <div className="p-6 pt-0 text-gray-400 leading-relaxed border-t border-white/5">
-                                            {faq.answer}
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    ))}
+                                <AnimatePresence initial={false}>
+                                    {isOpen && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                            className="overflow-hidden"
+                                        >
+                                            <p className="pt-4 text-text-muted leading-relaxed font-inter text-base">
+                                                {faq.answer}
+                                            </p>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </section>
