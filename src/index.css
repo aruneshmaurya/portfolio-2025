@@ -152,6 +152,16 @@ section:not(#hero):not(.hero-section) {
 }
 .animate-mockup-scroll {
   animation: mockup-scroll-up 8s ease-in-out alternate infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.animate-mockup-scroll img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 .browser-mockup-container:hover .animate-mockup-scroll {
   animation-play-state: paused;
