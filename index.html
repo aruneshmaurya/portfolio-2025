@@ -1,15 +1,3225 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>W3Setup | Premium Shopify Store Development & Design</title>
-    <meta name="description" content="Expert Shopify development services. We build high-converting, mobile-optimized Shopify stores for growing D2C brands. Speed, design, and performance." />
-    <meta name="keywords" content="w3setup, shopify expert, shopify development, ecommerce website design, custom shopify theme, shopify speed optimization" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <meta name="description" content="Expert Shopify development services. We build high-converting, mobile-optimized Shopify stores for growing D2C brands. Speed, design, and performance.">
+    <meta name="keywords" content="w3setup, shopify expert, shopify development, ecommerce website design, custom shopify theme, shopify speed optimization">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- Google Fonts via @import -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400&display=swap');
+
+        /* CSS Variables & Theme Setup */
+        :root {
+            --bg-primary: #070B14;
+            --bg-secondary: #0D1526;
+            --bg-card: #111827;
+            --accent: #5B6EF5;
+            --accent-purple: #8B5CF6;
+            --accent-glow: rgba(91, 110, 245, 0.12);
+            --text-primary: #F0F4FF;
+            --text-secondary: #8892A4;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-accent: rgba(91, 110, 245, 0.3);
+            --green-wa: #25D366;
+            --copper-border: rgba(184, 115, 51, 0.4);
+            --copper-glow: rgba(184, 115, 51, 0.15);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        h1 {
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            font-size: 56px;
+            line-height: 1.2;
+            color: #FFFFFF;
+        }
+        h2 {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 42px;
+            line-height: 1.2;
+            color: #FFFFFF;
+        }
+        h3 {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+            line-height: 1.2;
+            color: #FFFFFF;
+        }
+        p, li {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        @media (max-width: 767px) {
+            body {
+                font-size: 15px;
+            }
+            p, li {
+                font-size: 15px;
+            }
+            h1 {
+                font-size: 36px !important;
+            }
+            h2 {
+                font-size: 28px !important;
+            }
+            h3 {
+                font-size: 18px !important;
+            }
+        }
+
+        /* Container Layouts */
+        .section-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        /* Responsive Section Spacing */
+        @media (max-width: 767px) {
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Global Eyebrow styling */
+        .eyebrow-label {
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent) !important;
+            font-size: 11px !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .eyebrow-label::before {
+            content: '';
+            display: inline-block;
+            width: 2px;
+            height: 16px;
+            background-color: var(--accent);
+            border-radius: 1px;
+        }
+
+        /* Premium Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-accent);
+        }
+
+        /* Sticky Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 950;
+            transition: all 0.4s ease;
+            background: transparent;
+            padding: 24px 0;
+        }
+        header.scrolled {
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Nav links grow animation */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #FFFFFF;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Logo Styling */
+        .logo {
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+            cursor: pointer;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .logo-accent-char {
+            position: relative;
+            display: inline-block;
+        }
+        .logo-accent-char::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 99px;
+        }
+
+        /* Button Custom Styles */
+        .btn-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.25s ease-in-out;
+            cursor: pointer;
+            border: none;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(91, 110, 245, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(91, 110, 245, 0.45);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+        .btn-secondary:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateY(-2px);
+        }
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        /* Mobile Hamburger icon & lines */
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1050;
+        }
+        .hamburger-line {
+            width: 100%;
+            height: 2px;
+            background-color: #FFFFFF;
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger-btn.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger-btn.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-btn.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Mobile Full-Screen Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 11, 20, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+            padding: 40px;
+        }
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .mobile-menu-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 32px !important;
+            color: #FFFFFF;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 40px;
+        }
+        .mobile-menu-link {
+            font-family: 'Sora', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FFFFFF;
+            padding: 18px 0 !important;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: color 0.2s ease;
+        }
+        .mobile-menu-link:hover {
+            color: var(--accent);
+        }
+        .mobile-menu-overlay .btn-pill {
+            width: 100%;
+            max-width: 280px;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 767px) {
+            .nav-links {
+                display: none;
+            }
+            .header-cta-btn {
+                display: none;
+            }
+            .hamburger-btn {
+                display: flex;
+            }
+        }
+
+        /* Hero Section Spacing */
+        #hero {
+            padding-top: 180px;
+            padding-bottom: 100px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at 20% 30%, rgba(91, 110, 245, 0.12), transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.12), transparent 50%),
+                        radial-gradient(circle at 50% 50%, var(--bg-primary), var(--bg-primary));
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .hero-title {
+            font-size: 56px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+        .hero-title span {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtext {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 36px;
+            max-width: 600px;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .hero-trust-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .hero-trust-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            opacity: 0.5;
+        }
+        .hero-mockup-isometric {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Floating Geometric Shapes */
+        .floating-shape {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.01);
+            pointer-events: none;
+        }
+        .shape-1 {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            top: -20px;
+            right: 40px;
+            transform: rotate(15deg);
+            animation: float-slow 8s ease-in-out infinite;
+        }
+        .shape-2 {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            bottom: -30px;
+            left: 20px;
+            animation: float-medium 6s ease-in-out infinite;
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(15deg); }
+            50% { transform: translateY(-12px) rotate(18deg); }
+        }
+        @keyframes float-medium {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Mobile Hero Spacing */
+        @media (max-width: 767px) {
+            #hero {
+                padding-top: 140px;
+                padding-bottom: 60px;
+                min-height: 100svh;
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            .hero-title {
+                font-size: 36px;
+                margin-bottom: 16px;
+            }
+            .hero-subtext {
+                font-size: 16px;
+                margin-bottom: 28px;
+            }
+            .hero-ctas {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+            }
+            .hero-ctas .btn-pill {
+                width: 100%;
+            }
+            .hero-trust-bar {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                font-size: 13px;
+                border-top: 1px solid var(--border);
+                padding-top: 20px;
+            }
+            .hero-trust-dot {
+                display: none;
+            }
+            .hero-mockup-isometric {
+                display: none;
+            }
+        }
+
+        /* Niches Marquee Section */
+        .marquee-section {
+            background-color: var(--bg-primary);
+            padding: 30px 0;
+            border-y: 1px solid rgba(255, 255, 255, 0.04);
+            overflow: hidden;
+            user-select: none;
+        }
+        .marquee-container {
+            display: flex;
+            width: max-content;
+            gap: 48px;
+        }
+        .marquee-track {
+            display: flex;
+            gap: 48px;
+            animation: marquee-scroll 25s linear infinite;
+            white-space: nowrap;
+        }
+        .marquee-item {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+        .marquee-item::after {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--accent);
+        }
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Stats Cards Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .stat-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            border-color: var(--border-accent);
+            box-shadow: 0 0 32px var(--accent-glow);
+        }
+        .stat-glow {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .stat-card:hover .stat-glow {
+            opacity: 0.15;
+        }
+        .stat-value {
+            font-size: 48px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        .stat-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        @media (max-width: 1023px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        /* Services Grid Section */
+        .services-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+        .service-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            border-color: var(--border-accent);
+            box-shadow: 0 0 32px var(--accent-glow);
+        }
+        .service-card-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 10% 10%, rgba(91, 110, 245, 0.03) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .service-card:hover .service-card-glow {
+            opacity: 1;
+        }
+        .service-icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: rgba(91, 110, 245, 0.1);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover .service-icon-box {
+            transform: scale(1.05);
+        }
+        .service-title {
+            font-size: 22px;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        .service-desc {
+            color: #CBD5E1;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .services-footer {
+            text-align: center;
+        }
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+        @media (max-width: 767px) {
+            .service-card {
+                padding: 28px;
+            }
+        }
+
+        /* Portfolio Project Layout */
+        .projects-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 120px;
+        }
+        .project-row {
+            display: flex;
+            gap: 64px;
+            align-items: center;
+        }
+        .project-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .project-visual {
+            width: 55%;
+            flex-shrink: 0;
+        }
+        .project-details {
+            width: 45%;
+        }
+
+        /* Browser Mockup Animations & Details */
+        .browser-mockup-frame {
+            border-radius: 12px;
+            border: 1px solid var(--border-accent);
+            background: var(--bg-primary);
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 380px;
+            position: relative;
+        }
+        .browser-chrome-bar {
+            height: 38px;
+            padding: 0 16px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-accent);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        .browser-chrome-dots {
+            display: flex;
+            gap: 6px;
+        }
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .browser-url-input {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--text-secondary);
+            padding: 4px 20px;
+            width: 50%;
+            max-width: 240px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .browser-chrome-actions {
+            width: 42px;
+        }
+        .browser-screenshot-viewport {
+            position: relative;
+            width: 100%;
+            flex-grow: 1;
+            overflow: hidden;
+            background-color: #070B14;
+        }
+        .browser-screenshot-track {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: mockup-page-scroll 10s ease-in-out alternate infinite;
+        }
+        .browser-screenshot-track img {
+            width: 100%;
+            display: block;
+            image-rendering: auto;
+        }
+        .browser-mockup-frame:hover .browser-screenshot-track {
+            animation-play-state: paused;
+        }
+        .browser-bottom-fade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to top, var(--bg-primary) 0%, transparent 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        @keyframes mockup-page-scroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-30%); }
+        }
+
+        /* Real Cupreva Mockup Overwrite (CSS Rebuilt Layout) */
+        .cupreva-mockup {
+            border: 1.5px solid var(--copper-border);
+            box-shadow: 0 0 40px var(--copper-glow), 0 20px 60px rgba(0, 0, 0, 0.5);
+            border-radius: 14px;
+        }
+        .cupreva-viewport-scroller {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: cupreva-page-scroll 12s linear alternate infinite;
+        }
+        .cupreva-mockup:hover .cupreva-viewport-scroller {
+            animation-play-state: paused;
+        }
+
+        @keyframes cupreva-page-scroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-55%); }
+        }
+
+        /* Cupreva Inner Content CSS styles */
+        .cupreva-web-page {
+            width: 100%;
+            background-color: #080402;
+            color: #E6DFDA;
+            font-size: 11px;
+            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+        }
+        .cupreva-web-hero {
+            background: linear-gradient(135deg, #2C1A0E 0%, #4A2810 40%, #3D1F0A 100%);
+            padding: 24px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .cupreva-web-hero-left {
+            width: 55%;
+        }
+        .cupreva-web-hero-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #FFF3EB;
+            margin-bottom: 8px;
+        }
+        .cupreva-web-hero-btn {
+            background-color: #D47B39;
+            color: #FFFFFF;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 9px;
+            display: inline-block;
+        }
+        .cupreva-web-hero-right {
+            width: 45%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .cupreva-web-product-img {
+            aspect-ratio: 1;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #b87333 0%, #da8a4e 50%, #c17f3a 100%);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+        .cupreva-web-trust-bar {
+            background-color: #1a0d05;
+            border-top: 1px solid rgba(184, 115, 51, 0.2);
+            border-bottom: 1px solid rgba(184, 115, 51, 0.2);
+            padding: 8px 12px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            text-align: center;
+            font-size: 8px;
+            color: #C8B9B0;
+        }
+        .cupreva-web-collections {
+            padding: 20px 16px;
+        }
+        .cupreva-web-section-label {
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            font-size: 8px;
+            letter-spacing: 0.1em;
+            color: #D47B39;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .cupreva-web-collections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .cupreva-web-collection-card {
+            text-align: center;
+        }
+        .cupreva-web-collection-thumb {
+            width: 100%;
+            aspect-ratio: 0.95;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #24140a 0%, #3a2214 100%);
+            border: 1px solid rgba(184, 115, 51, 0.15);
+            margin-bottom: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .cupreva-web-collection-thumb::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b87333 0%, #da8a4e 100%);
+            opacity: 0.8;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+        .cupreva-web-collection-title {
+            font-size: 9px;
+            font-weight: 600;
+            color: #E6DFDA;
+        }
+        .cupreva-web-bestsellers {
+            background-color: #0E0704;
+            padding: 24px 16px;
+        }
+        .cupreva-web-grid-bestsellers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .cupreva-web-item-card {
+            border-radius: 8px;
+            background: #150b07;
+            border: 1px solid rgba(184, 115, 51, 0.1);
+            padding: 8px;
+            text-align: center;
+        }
+        .cupreva-web-item-thumb {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #22120b 0%, #0d0604 100%);
+            border-radius: 6px;
+            margin-bottom: 6px;
+            position: relative;
+        }
+        .cupreva-web-item-thumb::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 35%;
+            width: 30%;
+            height: 50%;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #da8a4e 0%, #b87333 100%);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .cupreva-web-item-title {
+            font-size: 8px;
+            font-weight: 500;
+            color: #FFF3EB;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cupreva-web-item-price {
+            font-size: 8px;
+            color: #D47B39;
+            font-weight: 700;
+        }
+
+        /* Project description card elements */
+        .project-industry {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            background: rgba(91, 110, 245, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+        .project-name {
+            font-size: 36px;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+        .project-tagline {
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+        }
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .project-checklist-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: block;
+        }
+        .project-checklist {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+        .project-checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .project-checkmark {
+            color: var(--accent);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .project-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            margin-bottom: 24px;
+        }
+        .project-metric-pill {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-accent);
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+        .project-action-link {
+            font-weight: 700;
+            color: #FFFFFF;
+            border-bottom: 1px solid rgba(91, 110, 245, 0.8);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding-bottom: 2px;
+        }
+        .project-action-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Hover overlay CTA in Project container */
+        .project-screenshot-overlay-cta {
+            position: absolute;
+            inset: 0;
+            background: rgba(7, 11, 20, 0.7);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+        .browser-mockup-frame:hover .project-screenshot-overlay-cta {
+            opacity: 1;
+        }
+        .browser-mockup-frame:hover {
+            box-shadow: 0 0 40px rgba(91, 110, 245, 0.12), 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Responsive Portfolio Layout */
+        @media (max-width: 900px) {
+            .projects-wrapper {
+                gap: 80px;
+            }
+            .project-row, .project-row:nth-child(even) {
+                flex-direction: column;
+                gap: 32px;
+            }
+            .project-visual {
+                width: 100%;
+            }
+            .project-details {
+                width: 100%;
+            }
+        }
+
+        /* New Trust Section: Why Brands Choose Me */
+        .trust-section {
+            background-color: var(--bg-primary);
+        }
+        .trust-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+        .trust-card {
+            background-color: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s ease;
+        }
+        .trust-card:hover {
+            border-color: rgba(91, 110, 245, 0.35);
+            box-shadow: 0 0 28px rgba(91, 110, 245, 0.1);
+        }
+        .trust-card-icon {
+            width: 36px;
+            height: 36px;
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .trust-card-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .trust-card-body {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .trust-section-footer {
+            text-align: center;
+        }
+        .trust-footer-subtext {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        @media (max-width: 900px) {
+            .trust-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        /* Pricing Cards Redesign */
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            align-items: stretch;
+            margin-bottom: 48px;
+        }
+        .pricing-card {
+            background-color: #0D1526;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 36px 32px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .pricing-card-highlighted {
+            transform: translateY(-8px);
+            border: 1.5px solid var(--accent);
+            box-shadow: 0 0 40px rgba(91, 110, 245, 0.12);
+        }
+        .pricing-badge-popular {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            color: #FFFFFF;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .pricing-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+        .pricing-name {
+            font-size: 24px;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .pricing-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            min-height: 48px;
+        }
+        .pricing-price-box {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-bottom: 28px;
+        }
+        .pricing-price {
+            font-size: 42px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            color: #FFFFFF;
+            line-height: 1;
+        }
+        .pricing-card-highlighted .pricing-price {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 48px;
+        }
+        .pricing-price-period {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .pricing-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.07);
+            width: 100%;
+            margin-bottom: 28px;
+        }
+        .pricing-features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 40px;
+            flex-grow: 1;
+        }
+        .pricing-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 14px;
+            color: #CBD5E1;
+        }
+        .pricing-card-highlighted .pricing-feature-item {
+            color: #FFFFFF;
+        }
+        .pricing-card-highlighted .pricing-checkmark {
+            color: var(--accent);
+        }
+        .pricing-card .btn-pill {
+            width: 100%;
+        }
+        .pricing-card-highlighted .btn-pill {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(91, 110, 245, 0.3);
+        }
+        .pricing-card-highlighted .btn-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(91, 110, 245, 0.45);
+        }
+        .pricing-card-highlighted .btn-pill:active {
+            transform: translateY(0);
+        }
+        .pricing-card-outlined-btn {
+            background: transparent;
+            border: 1.5px solid var(--accent);
+            color: var(--accent);
+        }
+        .pricing-card-outlined-btn:hover {
+            background: var(--accent);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+        .pricing-card-outlined-btn:active {
+            transform: translateY(0);
+        }
+        .pricing-bottom-content {
+            text-align: center;
+        }
+        .pricing-maintenance-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        .pricing-call-leadtext {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        .pricing-call-link {
+            color: #FFFFFF;
+            font-weight: 700;
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 2px;
+            transition: color 0.2s ease;
+        }
+        .pricing-call-link:hover {
+            color: var(--accent);
+        }
+        .pricing-trust-badges-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .pricing-badge-item {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pricing-badge-icon {
+            width: 14px;
+            height: 14px;
+            color: var(--accent);
+        }
+
+        /* Mobile Pricing Cards Responsive */
+        @media (max-width: 991px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                max-width: 450px;
+                margin: 0 auto 48px;
+            }
+            .pricing-card-highlighted {
+                transform: translateY(0);
+                order: -1; /* Display Growth card first */
+            }
+        }
+
+        /* Testimonials Section Styles */
+        .testimonials-wrapper {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+        .testimonials-container-carousel {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            width: 100%;
+            display: flex;
+            padding-bottom: 12px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .testimonials-container-carousel::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+        .testimonial-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 35s linear infinite;
+        }
+        .testimonial-track:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .testimonial-card {
+            width: 380px;
+            flex-shrink: 0;
+            margin-right: 24px;
+            background: linear-gradient(145deg, #111827 0%, #0D1526 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 32px 28px;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        .testimonial-quote-mark {
+            font-family: Georgia, serif;
+            font-size: 72px;
+            color: var(--accent);
+            opacity: 0.25;
+            line-height: 0.8;
+            display: block;
+            margin-bottom: 8px;
+            user-select: none;
+        }
+        .testimonial-stars {
+            color: #F59E0B;
+            font-size: 15px;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .testimonial-text {
+            font-size: 15px;
+            color: #CBD5E1;
+            font-style: italic;
+            line-height: 1.75;
+            margin-bottom: 24px;
+        }
+        .testimonial-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.06);
+            width: 100%;
+            margin: 20px 0;
+        }
+        .testimonial-author-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .testimonial-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .testimonial-author-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .testimonial-author-name {
+            font-family: 'Sora', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 2px;
+        }
+        .testimonial-author-company {
+            font-size: 13px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .testimonial-niche-badge {
+            background: rgba(91, 110, 245, 0.1);
+            border: 1px solid rgba(91, 110, 245, 0.25);
+            color: var(--accent);
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+        .testimonials-footer-row {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        /* Mobile Testimonials (Auto-scroll works, snaps, width changes) */
+        @media (max-width: 767px) {
+            .testimonial-track {
+                animation-duration: 25s; /* speed up slightly for mobile width */
+            }
+            .testimonial-card {
+                width: 300px;
+                margin-right: 16px;
+                padding: 24px;
+            }
+        }
+
+        /* Process Section Steps */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            position: relative;
+            margin-bottom: 48px;
+        }
+        .process-line {
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            border-top: 1px dashed rgba(91, 110, 245, 0.3);
+            z-index: 1;
+        }
+        .process-step-card {
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+        .process-step-num {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            margin: 0 auto 24px;
+            box-shadow: 0 4px 14px rgba(91, 110, 245, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .process-step-title {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        .process-step-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            max-width: 240px;
+            margin: 0 auto;
+        }
+        @media (max-width: 900px) {
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .process-line {
+                display: none;
+            }
+            .process-step-desc {
+                max-width: 100%;
+            }
+        }
+
+        /* FAQ Accordion Section */
+        .faq-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-accordion {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .faq-question-btn {
+            width: 100%;
+            min-height: 58px;
+            background: transparent;
+            border: none;
+            padding: 16px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+        }
+        .faq-question-text {
+            font-family: 'Sora', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFFFFF;
+            transition: color 0.2s ease;
+            padding-right: 16px;
+        }
+        .faq-question-btn:hover .faq-question-text {
+            color: var(--accent);
+        }
+        .faq-icon-wrapper {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .faq-icon-h {
+            width: 16px;
+            height: 2px;
+            background-color: var(--accent);
+            border-radius: 4px;
+        }
+        .faq-icon-v {
+            width: 2px;
+            height: 16px;
+            background-color: var(--accent);
+            border-radius: 4px;
+            position: absolute;
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-icon-v {
+            transform: rotate(90deg);
+            opacity: 0;
+        }
+        .faq-answer-pane {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .faq-answer-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #CBD5E1;
+            padding-bottom: 24px;
+        }
+        @media (max-width: 767px) {
+            .faq-question-text {
+                font-size: 16px;
+            }
+        }
+
+        /* Final CTA Section */
+        .cta-box {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        .cta-title {
+            font-size: 56px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+        .cta-sub {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 36px;
+        }
+        .cta-bottom-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+        @media (max-width: 767px) {
+            .cta-title {
+                font-size: 36px;
+            }
+            .cta-sub {
+                font-size: 16px;
+            }
+            .cta-box .btn-pill {
+                width: 100%;
+            }
+        }
+
+        /* Redesigned Footer Styles */
+        .footer {
+            background-color: #070B14;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 80px 0 40px;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-secondary);
+        }
+        .footer-grid-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+        .footer-brand-column {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .footer-tagline {
+            font-size: 14px;
+            color: var(--text-secondary);
+            max-width: 210px;
+            line-height: 1.6;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+        .footer-serve-note {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .footer-col-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        .footer-links-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+        }
+        .footer-link-item a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: block;
+            padding: 7px 0;
+            transition: color 0.2s ease;
+        }
+        .footer-link-item a:hover {
+            color: #F0F4FF;
+        }
+        .footer-connect-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+        }
+        .footer-connect-item a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 8px 0;
+            transition: color 0.2s ease;
+        }
+        .footer-connect-item a:hover {
+            color: #F0F4FF;
+        }
+        .footer-connect-icon {
+            width: 18px;
+            height: 18px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+        .footer-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.06);
+            width: 100%;
+            margin: 32px 0;
+        }
+        .footer-grid-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+        .footer-bottom-left {
+            color: var(--text-secondary);
+        }
+        .footer-bottom-right {
+            color: var(--text-secondary);
+        }
+
+        /* Mobile Footer stack */
+        @media (max-width: 900px) {
+            .footer-grid-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 36px;
+            }
+        }
+        @media (max-width: 767px) {
+            .footer {
+                padding: 40px 20px;
+            }
+            .footer-grid-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .footer-grid-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            .footer-tagline {
+                max-width: 100%;
+            }
+        }
+
+        /* Floating WhatsApp Button Overhaul */
+        .floating-whatsapp-wrap {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            user-select: none;
+        }
+        .whatsapp-bubble {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: #25D366;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+            transition: all 0.3s ease-in-out;
+        }
+        .whatsapp-bubble svg {
+            width: 26px;
+            height: 26px;
+        }
+        .whatsapp-bubble:hover {
+            transform: scale(1.1);
+        }
+        .whatsapp-tooltip {
+            margin-right: 12px;
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .floating-whatsapp-wrap:hover .whatsapp-tooltip {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .whatsapp-pulse-animation {
+            animation: wa-pulse 2.5s ease-in-out infinite;
+        }
+        @keyframes wa-pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35); }
+            50% { box-shadow: 0 4px 32px rgba(37, 211, 102, 0.6); }
+        }
+
+        /* Mobile WhatsApp button offsets */
+        @media (max-width: 767px) {
+            .floating-whatsapp-wrap {
+                bottom: 20px;
+                right: 20px;
+            }
+            .whatsapp-bubble {
+                width: 50px;
+                height: 50px;
+            }
+            .whatsapp-bubble svg {
+                width: 22px;
+                height: 22px;
+            }
+            .whatsapp-tooltip {
+                display: none; /* Hide tooltip on touch devices */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Header & Nav -->
+    <header id="main-header">
+        <div class="section-container">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <!-- Logo -->
+                <a href="#hero" class="logo" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">
+                    W<span class="logo-accent-char">3</span>Setup
+                </a>
+
+                <!-- Desktop navigation -->
+                <nav class="nav-links">
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#projects" class="nav-link">Work</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                </nav>
+
+                <!-- Desktop CTA button -->
+                <div class="header-cta-btn">
+                    <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Book a Free Call
+                    </a>
+                </div>
+
+                <!-- Hamburger Button -->
+                <button class="hamburger-btn" id="menu-toggle" aria-label="Toggle menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile menu overlay menu -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <button class="mobile-menu-close" id="menu-close">&times;</button>
+        <div class="mobile-menu-links">
+            <a href="#services" class="mobile-menu-link" onclick="toggleMobileMenu()">Services</a>
+            <a href="#projects" class="mobile-menu-link" onclick="toggleMobileMenu()">Work</a>
+            <a href="#pricing" class="mobile-menu-link" onclick="toggleMobileMenu()">Pricing</a>
+            <a href="#faq" class="mobile-menu-link" onclick="toggleMobileMenu()">FAQ</a>
+        </div>
+        <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Book a Free Call &rarr;
+        </a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="section-container">
+            <div class="hero-grid">
+                <div>
+                    <span class="eyebrow-label">SHOPIFY DEVELOPMENT SPECIALIST</span>
+                    <h1 class="hero-title">
+                        I build Shopify stores <br> that turn visitors into <br> <span>customers.</span>
+                    </h1>
+                    <p class="hero-subtext">
+                        High-converting, fast-loading, mobile-first Shopify stores for D2C brands that are serious about growth.
+                    </p>
+                    <div class="hero-ctas">
+                        <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            Book a Free Call &rarr;
+                        </a>
+                        <a href="#projects" class="btn-pill btn-secondary">
+                            View My Work
+                        </a>
+                    </div>
+                    <div class="hero-trust-bar">
+                        <span>50+ Stores Built</span>
+                        <span class="hero-trust-dot"></span>
+                        <span>100% On-Time</span>
+                        <span class="hero-trust-dot"></span>
+                        <span>D2C Specialists</span>
+                        <span class="hero-trust-dot"></span>
+                        <span style="display: flex; align-items: center; gap: 4px;">
+                            5★ Rated
+                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="hero-mockup-isometric">
+                    <!-- Isometric decorative card shapes to wow -->
+                    <div style="width: 280px; height: 180px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%); border-radius: 16px; opacity: 0.15; filter: blur(20px); position: absolute; transform: skewY(-10deg);"></div>
+                    <div class="floating-shape shape-1"></div>
+                    <div class="floating-shape shape-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Niches Marquee -->
+    <div class="marquee-section">
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <div class="marquee-item"><span>Fashion Brands</span></div>
+                <div class="marquee-item"><span>Beauty & Skincare</span></div>
+                <div class="marquee-item"><span>Home Decor</span></div>
+                <div class="marquee-item"><span>Health & Wellness</span></div>
+                <div class="marquee-item"><span>Electronics</span></div>
+                <div class="marquee-item"><span>Food & Beverage</span></div>
+                <div class="marquee-item"><span>Jewellery Brands</span></div>
+                <div class="marquee-item"><span>Sports & Fitness</span></div>
+            </div>
+            <!-- Duplicated track for loop -->
+            <div class="marquee-track">
+                <div class="marquee-item"><span>Fashion Brands</span></div>
+                <div class="marquee-item"><span>Beauty & Skincare</span></div>
+                <div class="marquee-item"><span>Home Decor</span></div>
+                <div class="marquee-item"><span>Health & Wellness</span></div>
+                <div class="marquee-item"><span>Electronics</span></div>
+                <div class="marquee-item"><span>Food & Beverage</span></div>
+                <div class="marquee-item"><span>Jewellery Brands</span></div>
+                <div class="marquee-item"><span>Sports & Fitness</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results count up section -->
+    <section id="results">
+        <div class="section-container">
+            <div class="stats-grid">
+                <!-- Stat Card 1 -->
+                <div class="stat-card">
+                    <div class="stat-glow"></div>
+                    <div class="stat-value" data-target="50" data-suffix="+">0+</div>
+                    <div class="stat-label">Shopify Stores Delivered</div>
+                </div>
+                <!-- Stat Card 2 -->
+                <div class="stat-card">
+                    <div class="stat-glow"></div>
+                    <div class="stat-value" data-target="3" data-suffix="x">0x</div>
+                    <div class="stat-label">Average Conversion Lift</div>
+                </div>
+                <!-- Stat Card 3 -->
+                <div class="stat-card">
+                    <div class="stat-glow"></div>
+                    <div class="stat-value" data-target="91" data-suffix="+">0+</div>
+                    <div class="stat-label">Average PageSpeed Score</div>
+                </div>
+                <!-- Stat Card 4 -->
+                <div class="stat-card">
+                    <div class="stat-glow"></div>
+                    <div class="stat-value" data-target="100" data-suffix="%">0%</div>
+                    <div class="stat-label">Client Retention Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section id="services">
+        <div class="section-container">
+            <div class="services-header">
+                <span class="eyebrow-label">WHAT I DO</span>
+                <h2 style="font-size: 42px; margin-top: 12px; margin-bottom: 20px;">
+                    Every service, built around one goal &mdash; your revenue.
+                </h2>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Card 1 -->
+                <div class="service-card">
+                    <div class="service-card-glow"></div>
+                    <div class="service-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+                    </div>
+                    <h3 class="service-title">Shopify Store Development</h3>
+                    <p class="service-desc">
+                        From zero to a fully functional, conversion-optimized Shopify store. Custom design, pixel-perfect development, and built to scale.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="service-card">
+                    <div class="service-card-glow"></div>
+                    <div class="service-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                    </div>
+                    <h3 class="service-title">Shopify Store Redesign</h3>
+                    <p class="service-desc">
+                        Tired of your existing store? I rebuild it with modern design, better UX, and a layout your customers will actually convert on.
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="service-card">
+                    <div class="service-card-glow"></div>
+                    <div class="service-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </div>
+                    <h3 class="service-title">UX & Performance Optimization</h3>
+                    <p class="service-desc">
+                        Slow stores lose customers. I audit and optimize your Shopify store for Core Web Vitals, PageSpeed, and mobile UX &mdash; measurably.
+                    </p>
+                </div>
+                <!-- Card 4 -->
+                <div class="service-card">
+                    <div class="service-card-glow"></div>
+                    <div class="service-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <h3 class="service-title">Ongoing Support & Maintenance</h3>
+                    <p class="service-desc">
+                        Launch is just the beginning. I stay by your side with monthly support, updates, and improvements so your store keeps performing.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Services footer book a call -->
+            <div class="services-footer">
+                <p style="margin-bottom: 20px; font-size: 15px; color: var(--text-secondary);">
+                    Not sure what you need? Let's figure it out together.
+                </p>
+                <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Book a Free Call &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section / Portfolio -->
+    <section id="projects">
+        <div class="section-container">
+            <div class="services-header" style="margin-bottom: 80px;">
+                <span class="eyebrow-label">SELECTED WORK</span>
+                <h2 style="font-size: 42px; margin-top: 12px;">
+                    A few stores we're proud of.
+                </h2>
+            </div>
+
+            <div class="projects-wrapper">
+                <!-- Card 1: COPPERAA -->
+                <div class="project-row">
+                    <!-- Mockup container -->
+                    <div class="project-visual">
+                        <div class="browser-mockup-frame">
+                            <div class="browser-chrome-bar">
+                                <div class="browser-chrome-dots">
+                                    <span class="browser-dot" style="background: #EF4444;"></span>
+                                    <span class="browser-dot" style="background: #F59E0B;"></span>
+                                    <span class="browser-dot" style="background: #10B981;"></span>
+                                </div>
+                                <div class="browser-url-input">copperaa.com</div>
+                                <div class="browser-chrome-actions"></div>
+                            </div>
+                            <div class="browser-screenshot-viewport">
+                                <div class="browser-screenshot-track">
+                                    <img src="/images/copperaa-full.png" alt="COPPERAA Preview">
+                                </div>
+                                <div class="browser-bottom-fade"></div>
+                                <div class="project-screenshot-overlay-cta">
+                                    <a href="https://copperaa.com" target="_blank" rel="noopener" class="btn-pill btn-primary">
+                                        Visit Live Store &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Details column -->
+                    <div class="project-details">
+                        <span class="project-industry">LIFESTYLE</span>
+                        <h3 class="project-name">COPPERAA</h3>
+                        <p class="project-tagline">Premium Copper Drinkware Flagship</p>
+                        <p class="project-description">
+                            COPPERAA is a premium copper drinkware brand. I built a complete Shopify store focused on luxury presentation, trust elements, and a smooth shopping experience.
+                        </p>
+                        <span class="project-checklist-title">What We Did</span>
+                        <ul class="project-checklist">
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Custom homepage layout focused on luxury aesthetics</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Advanced collection-based user navigation & search</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Product pages with conversion-boosting trust badges</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Highly optimized, mobile-first responsive checkout setup</li>
+                        </ul>
+                        <div class="project-metrics">
+                            <div class="project-metric-pill">PageSpeed: 91</div>
+                            <div class="project-metric-pill">Conversions: +2.8x</div>
+                            <div class="project-metric-pill">Mobile UX: 5★</div>
+                        </div>
+                        <a href="https://copperaa.com" target="_blank" rel="noopener" class="project-action-link">
+                            Visit Live Store &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: COPPRLY -->
+                <div class="project-row">
+                    <div class="project-visual">
+                        <div class="browser-mockup-frame">
+                            <div class="browser-chrome-bar">
+                                <div class="browser-chrome-dots">
+                                    <span class="browser-dot" style="background: #EF4444;"></span>
+                                    <span class="browser-dot" style="background: #F59E0B;"></span>
+                                    <span class="browser-dot" style="background: #10B981;"></span>
+                                </div>
+                                <div class="browser-url-input">copprly.com</div>
+                                <div class="browser-chrome-actions"></div>
+                            </div>
+                            <div class="browser-screenshot-viewport">
+                                <div class="browser-screenshot-track">
+                                    <img src="/images/copprly-full.png" alt="COPPRLY Preview">
+                                </div>
+                                <div class="browser-bottom-fade"></div>
+                                <div class="project-screenshot-overlay-cta">
+                                    <a href="https://copprly.com" target="_blank" rel="noopener" class="btn-pill btn-primary">
+                                        Visit Live Store &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-industry">WELLNESS</span>
+                        <h3 class="project-name">COPPRLY</h3>
+                        <p class="project-tagline">Craft Copper Utility Store</p>
+                        <p class="project-description">
+                            COPPRLY is a wellness-focused copper products brand. The goal was to create a clean and modern Shopify store that reflects tradition, health, and premium craftsmanship.
+                        </p>
+                        <span class="project-checklist-title">What We Did</span>
+                        <ul class="project-checklist">
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Shopify theme custom layout modifications</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Product pages optimized for craft storytelling</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Custom shipping options and localized checkouts</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Trust elements, reviews app, and social proof integration</li>
+                        </ul>
+                        <div class="project-metrics">
+                            <div class="project-metric-pill">PageSpeed: 93</div>
+                            <div class="project-metric-pill">Mobile Bounce: -25%</div>
+                            <div class="project-metric-pill">Mobile Sales: +40%</div>
+                        </div>
+                        <a href="https://copprly.com" target="_blank" rel="noopener" class="project-action-link">
+                            Visit Live Store &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: DREZYY -->
+                <div class="project-row">
+                    <div class="project-visual">
+                        <div class="browser-mockup-frame">
+                            <div class="browser-chrome-bar">
+                                <div class="browser-chrome-dots">
+                                    <span class="browser-dot" style="background: #EF4444;"></span>
+                                    <span class="browser-dot" style="background: #F59E0B;"></span>
+                                    <span class="browser-dot" style="background: #10B981;"></span>
+                                </div>
+                                <div class="browser-url-input">drezyy.com</div>
+                                <div class="browser-chrome-actions"></div>
+                            </div>
+                            <div class="browser-screenshot-viewport">
+                                <div class="browser-screenshot-track">
+                                    <img src="/images/drezyy-full.png" alt="DREZYY Preview">
+                                </div>
+                                <div class="browser-bottom-fade"></div>
+                                <div class="project-screenshot-overlay-cta">
+                                    <a href="https://www.drezyy.com" target="_blank" rel="noopener" class="btn-pill btn-primary">
+                                        Visit Live Store &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-industry">FASHION & APPAREL</span>
+                        <h3 class="project-name">DREZYY</h3>
+                        <p class="project-tagline">Streetwear & Modern Fashion Platform</p>
+                        <p class="project-description">
+                            DREZYY is a fashion and streetwear brand. The store was designed with a bold, modern layout focused on visuals, collections, and easy navigation.
+                        </p>
+                        <span class="project-checklist-title">What We Did</span>
+                        <ul class="project-checklist">
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Bold fashion-focused homepage and clean typography</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Custom sizing charts and dynamic visual filters</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Product grid optimization & instant add-to-cart buttons</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Performance tuning for rapid asset loading & checkout speed</li>
+                        </ul>
+                        <div class="project-metrics">
+                            <div class="project-metric-pill">PageSpeed: 94</div>
+                            <div class="project-metric-pill">Conversions: +3.2x</div>
+                            <div class="project-metric-pill">Add-To-Cart: +15%</div>
+                        </div>
+                        <a href="https://www.drezyy.com" target="_blank" rel="noopener" class="project-action-link">
+                            Visit Live Store &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 4: CUPREVA (FIX 4 COMPLETE REBUILD WITH SCRATCH MOCKUP) -->
+                <div class="project-row">
+                    <div class="project-visual">
+                        <div class="browser-mockup-frame cupreva-mockup">
+                            <div class="browser-chrome-bar">
+                                <div class="browser-chrome-dots">
+                                    <span class="browser-dot" style="background: #EF4444;"></span>
+                                    <span class="browser-dot" style="background: #F59E0B;"></span>
+                                    <span class="browser-dot" style="background: #10B981;"></span>
+                                </div>
+                                <div class="browser-url-input">cupreva.com</div>
+                                <div class="browser-chrome-actions"></div>
+                            </div>
+                            <div class="browser-screenshot-viewport">
+                                <!-- Recreated page using HTML/CSS only inside viewport -->
+                                <div class="cupreva-viewport-scroller">
+                                    <div class="cupreva-web-page">
+                                        <!-- Header area placeholder -->
+                                        <div style="height: 28px; background-color: #0E0704; border-bottom: 1px solid rgba(184, 115, 51, 0.1); padding: 0 12px; display: flex; align-items: center; justify-content: space-between;">
+                                            <div style="font-family: 'Sora', sans-serif; font-weight: 800; font-size: 10px; color: #FFF3EB;">CUPREVA</div>
+                                            <div style="display: flex; gap: 8px; font-size: 8px; opacity: 0.7;">
+                                                <span>Shop</span>
+                                                <span>Story</span>
+                                                <span>Reviews</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Section 1 (Hero Area) -->
+                                        <div class="cupreva-web-hero">
+                                            <div class="cupreva-web-hero-left">
+                                                <h1 class="cupreva-web-hero-title">Upgrade Your Water, Transform Your Health Naturally.</h1>
+                                                <a href="#" class="cupreva-web-hero-btn" onclick="return false;">Shop Collection</a>
+                                            </div>
+                                            <div class="cupreva-web-hero-right">
+                                                <div class="cupreva-web-product-img"></div>
+                                                <div class="cupreva-web-product-img"></div>
+                                                <div class="cupreva-web-product-img"></div>
+                                                <div class="cupreva-web-product-img"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Section 2 (Trust Bar) -->
+                                        <div class="cupreva-web-trust-bar">
+                                            <div>99.9% Pure Copper</div>
+                                            <div>Free Shipping</div>
+                                            <div>Free Returns</div>
+                                            <div>24/7 Support</div>
+                                        </div>
+
+                                        <!-- Section 3 (Collections) -->
+                                        <div class="cupreva-web-collections">
+                                            <div class="cupreva-web-section-label">OUR COLLECTIONS</div>
+                                            <div class="cupreva-web-collections-grid">
+                                                <div class="cupreva-web-collection-card">
+                                                    <div class="cupreva-web-collection-thumb"></div>
+                                                    <span class="cupreva-web-collection-title">Bottles</span>
+                                                </div>
+                                                <div class="cupreva-web-collection-card">
+                                                    <div class="cupreva-web-collection-thumb"></div>
+                                                    <span class="cupreva-web-collection-title">Dispensers</span>
+                                                </div>
+                                                <div class="cupreva-web-collection-card">
+                                                    <div class="cupreva-web-collection-thumb"></div>
+                                                    <span class="cupreva-web-collection-title">Mugs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Section 4 (Best Sellers) -->
+                                        <div class="cupreva-web-bestsellers">
+                                            <div class="cupreva-web-section-label">BEST SELLING PRODUCTS</div>
+                                            <div class="cupreva-web-grid-bestsellers">
+                                                <div class="cupreva-web-item-card">
+                                                    <div class="cupreva-web-item-thumb"></div>
+                                                    <div class="cupreva-web-item-title">Classic Bottle</div>
+                                                    <div class="cupreva-web-item-price">₹1,899</div>
+                                                </div>
+                                                <div class="cupreva-web-item-card">
+                                                    <div class="cupreva-web-item-thumb"></div>
+                                                    <div class="cupreva-web-item-title">Hammered Bottle</div>
+                                                    <div class="cupreva-web-item-price">₹1,999</div>
+                                                </div>
+                                                <div class="cupreva-web-item-card">
+                                                    <div class="cupreva-web-item-thumb"></div>
+                                                    <div class="cupreva-web-item-title">Luxury Pitcher</div>
+                                                    <div class="cupreva-web-item-price">₹3,499</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Recreated Page Bottom Storytelling Elements -->
+                                        <div style="background-color: #080402; padding: 20px 16px; text-align: center;">
+                                            <div style="font-family: 'Space Mono', monospace; font-size: 8px; color: #D47B39; margin-bottom: 6px;">NATURE'S TONIC</div>
+                                            <div style="font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">Why Copper?</div>
+                                            <p style="font-size: 9px; color: #A89D96; max-width: 220px; margin: 0 auto 12px; line-height: 1.4;">
+                                                Storing water in a copper vessel activates a natural purification process that balances your body's three doshas.
+                                            </p>
+                                            <div style="width: 140px; height: 80px; background: linear-gradient(135deg, #301a0d 0%, #1a0a03 100%); margin: 0 auto; border-radius: 6px; border: 1px dashed rgba(184, 115, 51, 0.2); display: flex; align-items: center; justify-content: center; font-size: 8px; color: #D47B39;">Story Section Video</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="browser-bottom-fade"></div>
+                                <div class="project-screenshot-overlay-cta">
+                                    <a href="https://cupreva.com/" target="_blank" rel="noopener" class="btn-pill btn-primary">
+                                        Visit Live Store &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-industry">Health & Wellness</span>
+                        <h3 class="project-name">CUPREVA</h3>
+                        <p class="project-tagline">Pure Copper Bottles for Health, Detox & Immunity</p>
+                        <p class="project-description">
+                            CUPREVA needed a Shopify store that builds instant trust for a health-focused product. We designed a clean, benefit-led layout that educates and converts — combining brand storytelling with fast, mobile-first performance.
+                        </p>
+                        <span class="project-checklist-title">What We Did</span>
+                        <ul class="project-checklist">
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Custom Shopify theme — clean health-brand aesthetic</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> "Why Copper?" benefit storytelling section</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Trust badges and ingredient-transparency layout</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> Mobile-first product pages optimized for conversion</li>
+                            <li class="project-checklist-item"><span class="project-checkmark">✓</span> PageSpeed optimized — score 88+</li>
+                        </ul>
+                        <div class="project-metrics">
+                            <div class="project-metric-pill">PageSpeed 88+</div>
+                            <div class="project-metric-pill">Mobile Optimized</div>
+                            <div class="project-metric-pill">Health-Trust Layout</div>
+                        </div>
+                        <a href="https://cupreva.com/" target="_blank" rel="noopener" class="project-action-link">
+                            Visit Live Store &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio bottom free strategy CTA -->
+            <div class="services-footer" style="margin-top: 80px;">
+                <p style="margin-bottom: 20px; font-size: 15px; color: var(--text-secondary);">
+                    Want to see more? I'll share relevant case studies for your niche.
+                </p>
+                <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Book a Free Call &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Brands Choose Me Section (Replaces NDA section completely) -->
+    <section id="why-choose-me" class="trust-section">
+        <div class="section-container">
+            <div class="trust-header">
+                <span class="eyebrow-label">WHY W3SETUP</span>
+                <h2 style="font-size: 42px; margin-top: 12px; margin-bottom: 20px;">
+                    What makes the difference.
+                </h2>
+                <p style="font-size: 16px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    Other agencies give you a store. I give you a brand experience.
+                </p>
+            </div>
+
+            <div class="trust-grid">
+                <!-- Card 1 -->
+                <div class="trust-card">
+                    <div class="trust-card-icon">
+                        <!-- Bullseye SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                    </div>
+                    <h3 class="trust-card-title">Shopify-Only Focus</h3>
+                    <p class="trust-card-body">
+                        I don't do WordPress, Wix, or Squarespace. 100% of my focus is Shopify — which means deeper expertise, faster delivery, and zero learning curve on your project.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="trust-card">
+                    <div class="trust-card-icon">
+                        <!-- Receipt/Tag SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                    </div>
+                    <h3 class="trust-card-title">Fixed Price, No Surprises</h3>
+                    <p class="trust-card-body">
+                        Scope, price, and timeline are locked before I start. No change orders, no 'just a few more hours', no uncomfortable conversations mid-project.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="trust-card">
+                    <div class="trust-card-icon">
+                        <!-- Eye SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </div>
+                    <h3 class="trust-card-title">You See Progress Daily</h3>
+                    <p class="trust-card-body">
+                        Daily updates via WhatsApp. You'll never wonder what stage your project is at. Staging links shared at every milestone so you can review before I move forward.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="trust-card">
+                    <div class="trust-card-icon">
+                        <!-- Smartphone SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                    </div>
+                    <h3 class="trust-card-title">Mobile-First by Default</h3>
+                    <p class="trust-card-body">
+                        Every store I build is designed mobile-first, not as an afterthought. Pixel-perfect on every screen size — because that's where your customers are.
+                    </p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="trust-card">
+                    <div class="trust-card-icon">
+                        <!-- Gauge/Speed SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>
+                    </div>
+                    <h3 class="trust-card-title">Speed = Revenue</h3>
+                    <p class="trust-card-body">
+                        A 1-second delay in load time costs 7% in conversions (Google data). I optimize every store for Core Web Vitals and PageSpeed before handover.
+                    </p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="trust-card">
+                    <div class="trust-card-icon">
+                        <!-- Shield SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <h3 class="trust-card-title">Post-Launch Support</h3>
+                    <p class="trust-card-body">
+                        Every project includes post-launch support. I'm reachable after handover and offer monthly maintenance plans for ongoing care.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom of Trust Section -->
+            <div class="trust-section-footer">
+                <p class="trust-footer-subtext">Still have questions before starting?</p>
+                <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Book a Free Call &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing cards redesign -->
+    <section id="pricing">
+        <div class="section-container">
+            <div class="pricing-header">
+                <span class="eyebrow-label">TRANSPARENT PRICING</span>
+                <h2 style="font-size: 42px; margin-top: 12px; margin-bottom: 20px;">
+                    Simple, honest pricing for serious brands.
+                </h2>
+                <p style="font-size: 16px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    No hidden charges. No scope creep surprises. What you see is what you pay.
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Card 1: Starter Store -->
+                <div class="pricing-card">
+                    <span class="pricing-label">STARTER</span>
+                    <h3 class="pricing-name">Starter Store</h3>
+                    <p class="pricing-desc">For new brands launching their first Shopify store.</p>
+                    <div class="pricing-price-box">
+                        <span class="pricing-price">₹14,999</span>
+                        <span class="pricing-price-period">/project</span>
+                    </div>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features-list">
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> 10 Product listings included</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Premium conversion theme setup</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> High-converting Homepage layout</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Essential Shopify checkout configuration</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Payment gateway integration</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Domain connection & launch setup</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Mobile responsive layout</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> 7 Days post-launch support</li>
+                    </ul>
+                    <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill pricing-card-outlined-btn">
+                        Choose Starter &rarr;
+                    </a>
+                </div>
+
+                <!-- Card 2: Growth Store (HIGHLIGHTED - MOST POPULAR) -->
+                <div class="pricing-card pricing-card-highlighted">
+                    <span class="pricing-badge-popular">MOST POPULAR</span>
+                    <span class="pricing-label" style="color: #FFFFFF; opacity: 0.8;">GROWTH</span>
+                    <h3 class="pricing-name">Growth Store</h3>
+                    <p class="pricing-desc" style="color: #F0F4FF; opacity: 0.9;">For D2C brands that need design, speed, and conversions.</p>
+                    <div class="pricing-price-box">
+                        <span class="pricing-price">₹18,999</span>
+                        <span class="pricing-price-period" style="color: #F0F4FF; opacity: 0.8;">/project</span>
+                    </div>
+                    <div class="pricing-divider" style="background-color: rgba(91, 110, 245, 0.2);"></div>
+                    <ul class="pricing-features-list">
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Everything in Starter</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Custom typography & brand styling</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Advanced custom Homepage sections</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Up to 45 products setup</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Trust badges & reviews app setup</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> WhatsApp messaging integration</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Pages setup (About, Contact, T&C, Refund)</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Dynamic filtering & search</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Speed & Core Web Vitals tuning</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> 15 Days post-launch support</li>
+                    </ul>
+                    <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-primary">
+                        Choose Growth &rarr;
+                    </a>
+                </div>
+
+                <!-- Card 3: Brand Store -->
+                <div class="pricing-card" style="border-color: rgba(255, 255, 255, 0.12);">
+                    <span class="pricing-label">ENTERPRISE</span>
+                    <h3 class="pricing-name">Brand Store</h3>
+                    <p class="pricing-desc">For established brands needing a fully custom flagship store.</p>
+                    <div class="pricing-price-box">
+                        <span class="pricing-price">₹27,999</span>
+                        <span class="pricing-price-period">/project</span>
+                    </div>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features-list">
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Everything in Growth</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Up to 100 products configured</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Custom banner graphics (2-3 designs)</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> High-converting copywriting for 2 products</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Advanced checkout styling</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Order tracking page configuration</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Custom FAQ accordion page setup</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Post-purchase recommendation apps</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> Advanced custom landing pages</li>
+                        <li class="pricing-feature-item"><span class="pricing-checkmark">✓</span> 30 Days post-launch support</li>
+                    </ul>
+                    <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill pricing-card-outlined-btn">
+                        Choose Brand &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- Under cards items -->
+            <div class="pricing-bottom-content">
+                <p class="pricing-maintenance-text">Also available: Monthly Maintenance from ₹3,999/month</p>
+                <p class="pricing-call-leadtext">
+                    Every project starts with a free 30-min strategy call. 
+                    <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="pricing-call-link">Book Now &rarr;</a>
+                </p>
+                
+                <div class="pricing-trust-badges-row">
+                    <div class="pricing-badge-item">
+                        <svg class="pricing-badge-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        Secure Payment
+                    </div>
+                    <div class="pricing-badge-item">
+                        <svg class="pricing-badge-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        Written Agreement
+                    </div>
+                    <div class="pricing-badge-item">
+                        <svg class="pricing-badge-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        Fast Turnaround
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials complete scroll rebuild -->
+    <section id="testimonials">
+        <div class="section-container">
+            <div class="pricing-header">
+                <span class="eyebrow-label">CLIENT LOVE</span>
+                <h2 style="font-size: 42px; margin-top: 12px; margin-bottom: 20px;">
+                    Don't take my word for it.
+                </h2>
+                <p style="font-size: 16px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    Real feedback from real brand founders &mdash; no templates, no fakes.
+                </p>
+            </div>
+
+            <div class="testimonials-wrapper">
+                <div class="testimonials-container-carousel">
+                    <!-- Flex loop containing 8 cards total (4 duplicated) for seamless CSS loop -->
+                    <div class="testimonial-track">
+                        <!-- Card 1 -->
+                        <div class="testimonial-card">
+                            <div>
+                                <span class="testimonial-quote-mark">"</span>
+                                <div class="testimonial-stars">★★★★★</div>
+                                <p class="testimonial-text">
+                                    "Honestly didn't expect this level of quality. The store went from a basic template to something that looks like a ₹10L agency built it. PageSpeed improved from 44 to 89. We saw a noticeable jump in sales within the first week of launch."
+                                </p>
+                            </div>
+                            <div>
+                                <div class="testimonial-divider"></div>
+                                <div class="testimonial-author-row">
+                                    <div class="testimonial-avatar">RS</div>
+                                    <div class="testimonial-author-info">
+                                        <span class="testimonial-author-name">Rajkumar S.</span>
+                                        <span class="testimonial-author-company">Founder, COPPERAA</span>
+                                        <div><span class="testimonial-niche-badge">Lifestyle & Wellness</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="testimonial-card">
+                            <div>
+                                <span class="testimonial-quote-mark">"</span>
+                                <div class="testimonial-stars">★★★★★</div>
+                                <p class="testimonial-text">
+                                    "What stood out was the communication &mdash; daily updates, no ghosting, delivered 2 days ahead of schedule. Our mobile add-to-cart rate improved significantly. Would not work with anyone else for our next store."
+                                </p>
+                            </div>
+                            <div>
+                                <div class="testimonial-divider"></div>
+                                <div class="testimonial-author-row">
+                                    <div class="testimonial-avatar">AM</div>
+                                    <div class="testimonial-author-info">
+                                        <span class="testimonial-author-name">Abhishek M.</span>
+                                        <span class="testimonial-author-company">Founder, COPPRLY</span>
+                                        <div><span class="testimonial-niche-badge">Copper Products</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="testimonial-card">
+                            <div>
+                                <span class="testimonial-quote-mark">"</span>
+                                <div class="testimonial-stars">★★★★★</div>
+                                <p class="testimonial-text">
+                                    "We'd worked with two agencies before &mdash; both disappointed us. W3Setup delivered a fashion store that actually looks fashion. The product pages, hover effects, typography &mdash; everything felt intentional. Very happy."
+                                </p>
+                            </div>
+                            <div>
+                                <div class="testimonial-divider"></div>
+                                <div class="testimonial-author-row">
+                                    <div class="testimonial-avatar">HM</div>
+                                    <div class="testimonial-author-info">
+                                        <span class="testimonial-author-name">Himanshu T.</span>
+                                        <span class="testimonial-author-company">Founder, DREZYY</span>
+                                        <div><span class="testimonial-niche-badge">Fashion & Apparel</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="testimonial-card">
+                            <div>
+                                <span class="testimonial-quote-mark">"</span>
+                                <div class="testimonial-stars">★★★★★</div>
+                                <p class="testimonial-text">
+                                    "Needed a health brand store that builds trust instantly. The 'Why Copper?' storytelling section they designed converted fence-sitters. Clean, fast, and exactly on-brand. Our return visitor rate improved too."
+                                </p>
+                            </div>
+                            <div>
+                                <div class="testimonial-divider"></div>
+                                <div class="testimonial-author-row">
+                                    <div class="testimonial-avatar">CT</div>
+                                    <div class="testimonial-author-info">
+                                        <span class="testimonial-author-name">Cupreva Team</span>
+                                        <span class="testimonial-author-company">Founder, CUPREVA</span>
+                                        <div><span class="testimonial-niche-badge">Health & Wellness</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Duplicated cards start here for loop -->
+                        <!-- Card 1 (Dup) -->
+                        <div class="testimonial-card">
+                            <div>
+                                <span class="testimonial-quote-mark">"</span>
+                                <div class="testimonial-stars">★★★★★</div>
+                                <p class="testimonial-text">
+                                    "Honestly didn't expect this level of quality. The store went from a basic template to something that looks like a ₹10L agency built it. PageSpeed improved from 44 to 89. We saw a noticeable jump in sales within the first week of launch."
+                                </p>
+                            </div>
+                            <div>
+                                <div class="testimonial-divider"></div>
+                                <div class="testimonial-author-row">
+                                    <div class="testimonial-avatar">RS</div>
+                                    <div class="testimonial-author-info">
+                                        <span class="testimonial-author-name">Rajkumar S.</span>
+                                        <span class="testimonial-author-company">Founder, COPPERAA</span>
+                                        <div><span class="testimonial-niche-badge">Lifestyle & Wellness</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 (Dup) -->
+                        <div class="testimonial-card">
+                            <div>
+                                <span class="testimonial-quote-mark">"</span>
+                                <div class="testimonial-stars">★★★★★</div>
+                                <p class="testimonial-text">
+                                    "What stood out was the communication &mdash; daily updates, no ghosting, delivered 2 days ahead of schedule. Our mobile add-to-cart rate improved significantly. Would not work with anyone else for our next store."
+                                </p>
+                            </div>
+                            <div>
+                                <div class="testimonial-divider"></div>
+                                <div class="testimonial-author-row">
+                                    <div class="testimonial-avatar">AM</div>
+                                    <div class="testimonial-author-info">
+                                        <span class="testimonial-author-name">Abhishek M.</span>
+                                        <span class="testimonial-author-company">Founder, COPPRLY</span>
+                                        <div><span class="testimonial-niche-badge">Copper Products</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 (Dup) -->
+                        <div class="testimonial-card">
+                            <div>
+                                <span class="testimonial-quote-mark">"</span>
+                                <div class="testimonial-stars">★★★★★</div>
+                                <p class="testimonial-text">
+                                    "We'd worked with two agencies before &mdash; both disappointed us. W3Setup delivered a fashion store that actually looks fashion. The product pages, hover effects, typography &mdash; everything felt intentional. Very happy."
+                                </p>
+                            </div>
+                            <div>
+                                <div class="testimonial-divider"></div>
+                                <div class="testimonial-author-row">
+                                    <div class="testimonial-avatar">HM</div>
+                                    <div class="testimonial-author-info">
+                                        <span class="testimonial-author-name">Himanshu T.</span>
+                                        <span class="testimonial-author-company">Founder, DREZYY</span>
+                                        <div><span class="testimonial-niche-badge">Fashion & Apparel</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 (Dup) -->
+                        <div class="testimonial-card">
+                            <div>
+                                <span class="testimonial-quote-mark">"</span>
+                                <div class="testimonial-stars">★★★★★</div>
+                                <p class="testimonial-text">
+                                    "Needed a health brand store that builds trust instantly. The 'Why Copper?' storytelling section they designed converted fence-sitters. Clean, fast, and exactly on-brand. Our return visitor rate improved too."
+                                </p>
+                            </div>
+                            <div>
+                                <div class="testimonial-divider"></div>
+                                <div class="testimonial-author-row">
+                                    <div class="testimonial-avatar">CT</div>
+                                    <div class="testimonial-author-info">
+                                        <span class="testimonial-author-name">Cupreva Team</span>
+                                        <span class="testimonial-author-company">Founder, CUPREVA</span>
+                                        <div><span class="testimonial-niche-badge">Health & Wellness</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom verified reviews subline -->
+                <div class="testimonials-footer-row">
+                    <span>✓ All reviews from verified clients &middot; ✓ Projects delivered 2023–2025</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section Steps -->
+    <section id="process">
+        <div class="section-container">
+            <div class="pricing-header" style="margin-bottom: 80px;">
+                <span class="eyebrow-label">MY PROCESS</span>
+                <h2 style="font-size: 42px; margin-top: 12px; margin-bottom: 20px;">
+                    From brief to launch &mdash; no guesswork, no surprises.
+                </h2>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-line"></div>
+                <!-- Step 1 -->
+                <div class="process-step-card">
+                    <div class="process-step-num">01</div>
+                    <h3 class="process-step-title">Discovery</h3>
+                    <p class="process-step-desc">We jump on a free 30-min call. I understand your brand, goals, competitors, and what success looks like.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="process-step-card">
+                    <div class="process-step-num">02</div>
+                    <h3 class="process-step-title">Proposal</h3>
+                    <p class="process-step-desc">You receive a detailed scope document, wireframe direction, project timeline, and a fixed price. No hidden charges.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="process-step-card">
+                    <div class="process-step-num">03</div>
+                    <h3 class="process-step-title">Build</h3>
+                    <p class="process-step-desc">I build the store in stages &mdash; you review progress and give feedback at checkpoints. Full transparency, always.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="process-step-card">
+                    <div class="process-step-num">04</div>
+                    <h3 class="process-step-title">Launch</h3>
+                    <p class="process-step-desc">We go live. I handle the technical domain connection, checkout setup, and stay available for post-launch support.</p>
+                </div>
+            </div>
+
+            <!-- Bottom CTA Book call -->
+            <div class="services-footer" style="margin-top: 60px;">
+                <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Book a Free Call &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion section -->
+    <section id="faq">
+        <div class="section-container">
+            <div class="pricing-header">
+                <span class="eyebrow-label">FAQ</span>
+                <h2 style="font-size: 42px; margin-top: 12px; margin-bottom: 20px;">
+                    Frequently Asked Questions
+                </h2>
+                <p style="font-size: 16px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    Everything you need to know about my Shopify development services.
+                </p>
+            </div>
+
+            <div class="faq-wrapper">
+                <div class="faq-accordion">
+                    <!-- Item 1 -->
+                    <div class="faq-item">
+                        <button class="faq-question-btn">
+                            <span class="faq-question-text">Do you only work with Shopify?</span>
+                            <div class="faq-icon-wrapper">
+                                <div class="faq-icon-h"></div>
+                                <div class="faq-icon-v"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-pane">
+                            <div class="faq-answer-text">
+                                Yes, I specialize exclusively in Shopify to provide the highest quality service. This allows me to be an expert in the platform, ensuring your store is built with best practices and the latest features.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="faq-item">
+                        <button class="faq-question-btn">
+                            <span class="faq-question-text">How long does it take to build a store?</span>
+                            <div class="faq-icon-wrapper">
+                                <div class="faq-icon-h"></div>
+                                <div class="faq-icon-v"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-pane">
+                            <div class="faq-answer-text">
+                                A standard store typically takes 1-2 weeks depending on the complexity and your responsiveness. The Starter plan can be ready in as little as 5 days.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="faq-item">
+                        <button class="faq-question-btn">
+                            <span class="faq-question-text">Do you provide support after launch?</span>
+                            <div class="faq-icon-wrapper">
+                                <div class="faq-icon-h"></div>
+                                <div class="faq-icon-v"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-pane">
+                            <div class="faq-answer-text">
+                                Yes! I provide post-launch support to ensure everything runs smoothly. For ongoing maintenance, updates, or bug fixes, you can opt for my "Ongoing Support" service.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="faq-item">
+                        <button class="faq-question-btn">
+                            <span class="faq-question-text">Can you redesign an existing Shopify store?</span>
+                            <div class="faq-icon-wrapper">
+                                <div class="faq-icon-h"></div>
+                                <div class="faq-icon-v"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-pane">
+                            <div class="faq-answer-text">
+                                Absolutely. I can give your existing store a complete makeover to improve its design, user experience, and conversion rate without losing your data.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 5 -->
+                    <div class="faq-item">
+                        <button class="faq-question-btn">
+                            <span class="faq-question-text">How do I get started?</span>
+                            <div class="faq-icon-wrapper">
+                                <div class="faq-icon-h"></div>
+                                <div class="faq-icon-v"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-pane">
+                            <div class="faq-answer-text">
+                                Simply click the "Book a Free Call" button to choose a time that works for you on my Calendar, and we can discuss your project requirements in detail.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="cta" style="background: radial-gradient(circle at 50% 50%, rgba(91, 110, 245, 0.08), transparent 70%); border-top: 1px solid rgba(255, 255, 255, 0.04);">
+        <div class="section-container">
+            <div class="cta-box">
+                <h2 class="cta-title">Ready to build a Shopify store <br> that actually sells?</h2>
+                <p class="cta-sub">Let's talk about your brand. The first strategy call is free.</p>
+                <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Book a Free Call &rarr;
+                </a>
+                <p class="cta-bottom-text">No commitment required &middot; Reply within 24 hours &middot; Free strategy included</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Redesigned Footer Section (Fix 6) -->
+    <footer class="footer">
+        <div class="section-container">
+            <div class="footer-grid-top">
+                <!-- Column 1: Brand details -->
+                <div class="footer-brand-column">
+                    <a href="#hero" class="logo" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">
+                        W<span class="logo-accent-char">3</span>Setup
+                    </a>
+                    <p class="footer-tagline">
+                        Shopify development for D2C brands that mean business.
+                    </p>
+                    <span class="footer-serve-note">🌍 Serving brands worldwide</span>
+                </div>
+
+                <!-- Column 2: Navigate -->
+                <div>
+                    <h4 class="footer-col-title">NAVIGATE</h4>
+                    <ul class="footer-links-list">
+                        <li class="footer-link-item"><a href="#hero" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">Home</a></li>
+                        <li class="footer-link-item"><a href="#services">Services</a></li>
+                        <li class="footer-link-item"><a href="#projects">Work</a></li>
+                        <li class="footer-link-item"><a href="#pricing">Pricing</a></li>
+                        <li class="footer-link-item"><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h4 class="footer-col-title">SERVICES</h4>
+                    <ul class="footer-links-list">
+                        <li class="footer-link-item"><a href="#services">Store Development</a></li>
+                        <li class="footer-link-item"><a href="#services">Store Redesign</a></li>
+                        <li class="footer-link-item"><a href="#services">Performance Optimization</a></li>
+                        <li class="footer-link-item"><a href="#pricing">Support & Maintenance</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Connect (No phone numbers) -->
+                <div>
+                    <h4 class="footer-col-title">CONNECT</h4>
+                    <ul class="footer-connect-list">
+                        <li class="footer-connect-item">
+                            <a href="https://wa.me/919336495028" target="_blank" rel="noopener noreferrer">
+                                <!-- WhatsApp icon -->
+                                <svg class="footer-connect-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                Message Us
+                            </a>
+                        </li>
+                        <li class="footer-connect-item">
+                            <a href="https://cal.com/aruneshmaurya/30min" target="_blank" rel="noopener noreferrer">
+                                <!-- Calendar icon -->
+                                <svg class="footer-connect-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                Book a Call
+                            </a>
+                        </li>
+                        <li class="footer-connect-item">
+                            <a href="mailto:imaruneshmaurya@gmail.com">
+                                <!-- Mail icon -->
+                                <svg class="footer-connect-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                Email Us
+                            </a>
+                        </li>
+                        <li class="footer-connect-item">
+                            <a href="https://www.linkedin.com/in/imaruneshmaurya/" target="_blank" rel="noopener noreferrer">
+                                <!-- Linkedin icon -->
+                                <svg class="footer-connect-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                                LinkedIn
+                            </a>
+                        </li>
+                        <li class="footer-connect-item">
+                            <a href="https://www.instagram.com/imaruneshmaurya/" target="_blank" rel="noopener noreferrer">
+                                <!-- Instagram icon -->
+                                <svg class="footer-connect-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01"/></svg>
+                                Instagram
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-grid-bottom">
+                <span class="footer-bottom-left">&copy; 2025 W3Setup. All rights reserved.</span>
+                <span class="footer-bottom-right">Made with ☕ for D2C brands</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="floating-whatsapp-wrap">
+        <div class="whatsapp-tooltip">Chat on WhatsApp</div>
+        <a href="https://wa.me/919336495028?text=Hi%2C%20I'm%20interested%20in%20building%20a%20Shopify%20store" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="whatsapp-bubble whatsapp-pulse-animation" 
+           aria-label="Chat on WhatsApp">
+            <!-- White SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+    </div>
+
+    <!-- Scripts Section -->
+    <script>
+        // Header scrolled class addition
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        menuClose.addEventListener('click', function() {
+            menuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        function toggleMobileMenu() {
+            menuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Stats Count Up Animation with IntersectionObserver
+        const stats = document.querySelectorAll('.stat-value');
+        const countUpDuration = 2000;
+
+        const countUpObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const targetEl = entry.target;
+                    const targetNum = parseInt(targetEl.getAttribute('data-target'), 10);
+                    const suffix = targetEl.getAttribute('data-suffix') || '';
+                    let startTimestamp = null;
+
+                    const animateStep = (timestamp) => {
+                        if (!startTimestamp) startTimestamp = timestamp;
+                        const elapsed = timestamp - startTimestamp;
+                        const progress = Math.min(elapsed / countUpDuration, 1);
+                        
+                        // Ease-out cubic
+                        const easeProgress = 1 - Math.pow(1 - progress, 3);
+                        const currentVal = Math.floor(easeProgress * targetNum);
+                        
+                        targetEl.textContent = currentVal + suffix;
+
+                        if (progress < 1) {
+                            window.requestAnimationFrame(animateStep);
+                        } else {
+                            targetEl.textContent = targetNum + suffix;
+                        }
+                    };
+
+                    window.requestAnimationFrame(animateStep);
+                    observer.unobserve(targetEl); // Trigger only once
+                }
+            });
+        }, { threshold: 0.1 });
+
+        stats.forEach(stat => countUpObserver.observe(stat));
+
+        // FAQ accordion click toggling
+        const faqQuestions = document.querySelectorAll('.faq-question-btn');
+        faqQuestions.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const item = this.parentElement;
+                const pane = this.nextElementSibling;
+                const isActive = item.classList.contains('active');
+
+                // Collapse any active FAQ item first
+                document.querySelectorAll('.faq-item').forEach(el => {
+                    el.classList.remove('active');
+                    el.querySelector('.faq-answer-pane').style.maxHeight = null;
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    pane.style.maxHeight = pane.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
+</body>
 </html>
